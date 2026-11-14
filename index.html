@@ -2443,7 +2443,8 @@ function route(){
 }
 function renderView(){
   if (!UI.lab) return; computeStats(); const V = VIEWS[UI.view];
-  $('#view').innerHTML = V.render(UI.arg); document.title = 'Strategy Lab';
+  const sb = (!UI.lab.live && UI.view === 'prehled') ? '<div class="warn-box" style="margin-bottom:16px"><b>Tohle je ukázková simulace, ne skutečný trh.</b> Datum, ceny i obchody jsou vymyšlené, proto se vše hýbe tak rychle (1 simulovaný den za sekundu). ' + (UI.server ? 'Živá data jsou k dispozici, přepneš je v Nastavení.' : 'Živá data z GitHubu se zatím nenačetla. Až workflow <b>Strategy Lab – data</b> poprvé doběhne, stránka se po obnovení sama přepne na skutečný NQ a pohyb se zpomalí na reálný čas.') + ' Simulaci spustíš tlačítkem ▶ Spustit.</div>' : '';
+  $('#view').innerHTML = sb + V.render(UI.arg); document.title = 'Strategy Lab';
   if (V.update) V.update(UI.arg, true);
 }
 function uiTick(){
@@ -2920,7 +2921,7 @@ function startLab(brain){
     const chunk = () => { const t0 = performance.now(); let r = null;
       while (performance.now() - t0 < 45){ r = it.next(); if (r.done) break; const v = r.value, p = v.phase === 'hist' ? v.k/v.of*0.9 : 0.9 + v.k/v.of*0.1; $('#ld-b').style.width = Math.round(p*100) + '%'; $('#ld-t').textContent = v.phase === 'hist' ? 'Denní historie: ' + lab.W.cal.fmt(v.k - 1) + ' · strategie obchodují…' : 'Minutová data NQ: den ' + v.k + ' z ' + v.of + '…'; }
       if (r && r.done){ if (lab.restoredEvo) lab.eng.evoLog = lab.restoredEvo.map(l => Object.assign({ isCur: l.isCur !== null ? { score: l.isCur } : null, best: l.isNew !== null ? { res: { score: l.isNew } } : null, oCur: l.oCur !== null ? { score: l.oCur } : null, oNew: l.oNew !== null ? { score: l.oNew } : null }, { sid: l.sid, d: l.d, date: l.date, gen: l.gen, accepted: l.accepted, reason: (l.reason || '') + ' (z minulé relace)', changes: l.changes, win: l.win }));
-        UI.lab = lab; ld.style.display = 'none'; UI.running = true; route(); }
+        UI.lab = lab; ld.style.display = 'none'; UI.running = false; route(); updateTop(); }
       else requestAnimationFrame(chunk); };
     chunk();
   }, 30);
