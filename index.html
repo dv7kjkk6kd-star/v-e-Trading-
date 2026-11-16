@@ -1,5 +1,5 @@
 <!doctype html><html lang="cs" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Strategy Lab</title><meta name="description" content="28 obchodních strategií obchoduje reálný trh na papíře, samy se hodnotí a učí.">
+<title>Strategy Lab</title><meta name="description" content="32 obchodních strategií obchoduje reálný trh na papíře, samy se hodnotí a učí.">
 <meta name="theme-color" content="#04090A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%AC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,13 +213,120 @@ th.on{color:var(--accent)}
 #loading .pbar i{background:var(--grad)}
 ::selection{background:var(--accent-soft)}
 @media (max-width:900px){.lapp{grid-template-columns:1fr;padding:8px;gap:10px}.ltop{top:8px}.lnav{position:static;height:auto;display:flex;overflow-x:auto;gap:4px;padding:6px}.lnav .grp,.lnav .note,.lnav .cnt{display:none}.lnav a{white-space:nowrap}}
+/* ===== v2: vychytávky ===== */
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 var(--accent-soft)}50%{box-shadow:0 0 0 6px transparent}}
+@keyframes pulse{0%,100%{transform:translate(-50%,0) scale(1)}50%{transform:translate(-50%,0) scale(1.25)}}
+#view>*{animation:rise .35s ease both}#view>*:nth-child(2){animation-delay:.04s}#view>*:nth-child(3){animation-delay:.08s}#view>*:nth-child(4){animation-delay:.12s}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--accent);color:var(--on-grad);padding:8px 14px;border-radius:99px;font-weight:600}.skip:focus{left:12px}
+.lnav .ic{display:inline-block;width:22px;font-style:normal;text-align:center;margin-right:6px}
+.lnav a span:first-child{display:flex;align-items:center}
+.navx{display:flex;gap:6px;margin:14px 6px 0;flex-wrap:wrap}
+.card{transition:border-color .2s,transform .2s}.card:hover{border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.h1s{font-size:24px;margin:0 0 4px}
+/* hero */
+.hero{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:22px;padding:26px 26px 18px;margin-bottom:18px;background:
+ radial-gradient(600px 260px at 0% 0%,var(--accent-soft),transparent 70%),radial-gradient(500px 240px at 100% 100%,var(--amber-soft),transparent 70%),var(--panel);backdrop-filter:blur(14px)}
+.hero:empty{display:none}
+.hero-in{display:grid;grid-template-columns:minmax(260px,1fr) 1.35fr;gap:22px;align-items:center}
+.hero h1{font-size:clamp(28px,3.4vw,40px);margin:0 0 6px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-t p{margin:0 0 14px;font-size:15.5px;line-height:1.55}
+.hero-b{display:flex;gap:8px;flex-wrap:wrap}
+.hero-s{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hs{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);text-decoration:none;transition:transform .15s,border-color .15s}
+.hs:hover{transform:translateY(-2px);border-color:var(--accent);text-decoration:none}
+.hs .e{font-size:26px;line-height:1}.hs small{display:block;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em}.hs b{display:block;font-size:14.5px;line-height:1.3}.hs em{font-style:normal;color:var(--muted);font-size:12.5px}
+.sbar{margin-top:18px}.sbar .track{position:relative;height:30px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);overflow:visible}
+.sbar .track>i{position:absolute;top:3px;bottom:3px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11.5px;font-weight:600;color:var(--ink);overflow:hidden}
+.sbar i.as{background:color-mix(in srgb,var(--c-scalp) 30%,transparent)}.sbar i.ln{background:color-mix(in srgb,var(--c-intraday) 30%,transparent)}.sbar i.ny{background:color-mix(in srgb,var(--c-swing) 35%,transparent)}
+.sbar i.kz{top:auto;bottom:-6px;height:4px;background:var(--c-ict);border-radius:3px}
+.sbar .now{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--amber);border-radius:3px;transform:translateX(-50%);box-shadow:0 0 12px var(--amber)}
+.sbar .now em{position:absolute;top:-22px;left:50%;transform:translateX(-50%);white-space:nowrap;font-style:normal;font-size:11.5px;font-weight:700;color:var(--amber);font-family:var(--f-mono)}
+.sbar .ticks{position:relative;height:16px;margin-top:6px}.sbar .ticks span{position:absolute;transform:translateX(-50%);font-size:10.5px;color:var(--muted);font-family:var(--f-mono)}
+.slegend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:4px}.slegend i{display:inline-block;width:12px;height:8px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.slegend i.as{background:var(--c-scalp)}.slegend i.ln{background:var(--c-intraday)}.slegend i.ny{background:var(--c-swing)}.slegend i.kz{background:var(--c-ict)}
+.favstrip{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px;font-size:13px}
+.fchip{display:inline-flex;gap:6px;align-items:center;padding:5px 10px;border-radius:99px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);text-decoration:none}.fchip:hover{border-color:var(--accent);text-decoration:none}
+/* žebříček */
+table.simple th:nth-child(5),table.simple td:nth-child(5),table.simple th:nth-child(10),table.simple td:nth-child(10),table.simple th:nth-child(11),table.simple td:nth-child(11),table.simple th:nth-child(12),table.simple td:nth-child(12),table.simple th:nth-child(13),table.simple td:nth-child(13){display:none}
+tr.click{transition:background .12s}tr.click:hover td{background:var(--accent-soft)}
+.chip.tog{border-style:dashed;cursor:pointer}
+.star{background:none;border:0;color:var(--muted);cursor:pointer;font-size:15px;padding:0 6px 0 0;line-height:1;transition:transform .15s,color .15s}.star:hover{transform:scale(1.25);color:var(--amber)}.star.on{color:var(--amber)}
+.star.big{font-size:26px;vertical-align:middle;padding-left:4px}
+/* knihovna */
+.libf{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin:14px 0 6px}.libf>div{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.libf b{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-right:4px}
+.libf .chip{cursor:pointer}
+.scards:empty::after{content:'Podle zvolených filtrů tu nic není.';color:var(--muted);font-size:13px}
+.mrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted);margin:6px 0 4px}
+.plain{color:var(--ink)!important;font-size:13.5px;line-height:1.5}
+.dots{display:inline-flex;gap:3px;vertical-align:middle}.dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}.dots i.on{background:var(--accent)}
+/* strategie */
+.kostka{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin:4px 0 14px;background:linear-gradient(135deg,var(--accent-soft),transparent 60%),var(--panel)}
+.kostka .k1{display:flex;gap:14px}.kostka .kic{font-size:34px;line-height:1}.kostka small{color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-size:11px}.kostka p{margin:4px 0 0;font-size:15.5px;line-height:1.5}.kostka .verd{font-size:13.5px;color:var(--muted)}
+.kostka .k2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kostka .k2 b{display:block;font-size:14px;margin-top:2px}
+details.adv{border:1px dashed var(--line);border-radius:16px;padding:4px 14px 14px;margin-top:18px}
+details.adv>summary{cursor:pointer;list-style:none;padding:12px 2px;color:var(--muted);font-size:14px}details.adv>summary::-webkit-details-marker{display:none}
+details.adv>summary span{display:inline-block;background:var(--accent-soft);color:var(--ink);font-weight:600;padding:4px 12px;border-radius:99px;margin-right:8px}
+details.adv>summary::after{content:' ▾';color:var(--accent)}details.adv[open]>summary::after{content:' ▴'}
+/* kvíz */
+.quiz{max-width:860px;margin:10px auto;text-align:center;padding:30px 26px}
+.quiz h1{margin:8px 0 20px}.qprog{display:flex;gap:6px;justify-content:center;margin-bottom:10px}.qprog i{width:40px;height:6px;border-radius:6px;background:var(--line)}.qprog i.done{background:var(--accent)}.qprog i.on{background:var(--grad)}
+.qopts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.qo{display:flex;flex-direction:column;gap:6px;align-items:center;padding:20px 14px;border-radius:16px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);cursor:pointer;font:inherit;transition:transform .15s,border-color .15s,background .15s}
+.qo:hover{transform:translateY(-3px);border-color:var(--accent);background:var(--accent-soft)}.qo.on{border-color:var(--accent);background:var(--accent-soft)}
+.qo .e{font-size:38px}.qo b{font-size:16px}.qo small{color:var(--muted);font-size:12.5px}
+.qnav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.qh span{font-size:46px}.qres{display:grid;gap:12px;text-align:left;margin-top:16px}
+.qr{display:flex;gap:14px;padding:16px;border-radius:16px;border:1px solid var(--line);border-left:4px solid var(--cc);background:var(--panel2);color:var(--ink);text-decoration:none;transition:transform .15s}.qr:hover{transform:translateX(4px);text-decoration:none}
+.qr .medal{font-size:34px}.qr>div{flex:1}.qr .row{display:flex;gap:12px;font-size:12.5px;color:var(--muted);font-family:var(--f-mono)}
+.match{height:8px;border-radius:8px;background:var(--line);margin:8px 0 2px;overflow:hidden}.match i{display:block;height:100%;background:var(--grad);border-radius:8px}
+/* slovníček */
+.bigsearch{width:100%;font-size:16px;padding:12px 16px!important;border-radius:14px!important;border:1px solid var(--line);background:var(--panel2);color:var(--ink)}
+.glist h3{margin:18px 0 6px;color:var(--accent)}
+.gitem{border-bottom:1px solid var(--line);padding:2px 0}.gitem summary{cursor:pointer;list-style:none;display:flex;gap:12px;padding:9px 2px;align-items:baseline}.gitem summary::-webkit-details-marker{display:none}
+.gitem summary b{min-width:150px}.gitem summary span{color:var(--muted);font-size:13.5px}.gitem p{margin:0 0 10px 162px;font-size:13.5px;line-height:1.55}
+.gl{text-decoration:underline dotted color-mix(in srgb,var(--accent) 70%,transparent);text-underline-offset:3px;cursor:help}
+#gtip{position:fixed;z-index:90;display:none;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg);box-shadow:0 18px 40px -12px rgba(0,0,0,.55);font-size:13px;line-height:1.5;pointer-events:none}
+#gtip b{color:var(--accent);font-size:14px}#gtip p{margin:4px 0 6px;color:var(--ink)}#gtip small{color:var(--muted)}
+/* kalkulačky */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.fld{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted)}.fld input,.fld select{font-size:15px;padding:9px 11px;font-family:var(--f-mono);width:100%}
+.calc-out{margin-top:14px;font-size:14px;line-height:1.55}.calc-out p{margin:6px 0}
+.bigres{font-family:var(--f-display);font-size:44px;font-weight:700;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}.bigres span{font-size:18px}.bigres.bad{background:none;color:var(--bad)}
+.rrbar{position:relative;height:14px;border-radius:14px;background:var(--good-soft);overflow:visible}.rrbar i{position:absolute;left:0;top:0;bottom:0;border-radius:14px 0 0 14px;background:var(--bad-soft)}.rrbar b{position:absolute;top:-5px;width:4px;height:24px;border-radius:3px;background:var(--ink);transform:translateX(-50%)}
+.times{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}.times div{display:flex;gap:10px;padding:8px 12px;border-radius:12px;background:var(--panel2)}.times b{font-family:var(--f-mono);min-width:92px;color:var(--accent)}
+/* modální okna */
+.modal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:16px;background:rgba(2,8,8,.55);backdrop-filter:blur(6px);animation:rise .2s ease}
+.modal.top{align-items:start;padding-top:12vh}
+.mbox{width:min(560px,100%);max-height:80vh;overflow:auto;border:1px solid var(--line);border-radius:22px;padding:22px;background:var(--bg);box-shadow:0 30px 80px -20px rgba(0,0,0,.6)}
+.tour{text-align:center}.tour .te{font-size:54px;display:block;animation:rise .4s ease}.tour h2{margin:6px 0 8px}.tour p{font-size:15.5px;line-height:1.6;margin:0 0 14px}
+.tdots{display:flex;gap:6px;justify-content:center;margin:6px 0 16px}.tdots i{width:8px;height:8px;border-radius:50%;background:var(--line)}.tdots i.on{background:var(--accent);width:22px;border-radius:8px}
+.tnav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.pal{display:flex;flex-direction:column;gap:2px;margin-top:10px}.pal a{display:flex;gap:12px;align-items:center;padding:9px 12px;border-radius:12px;color:var(--ink);text-decoration:none}.pal a.on,.pal a:hover{background:var(--accent-soft);text-decoration:none}
+.pal .pi{font-size:20px;width:26px;text-align:center}.pal small{display:block;color:var(--muted);font-size:12px}
+.keys{display:grid;gap:8px;margin:12px 0 16px}.keys div{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+kbd{font-family:var(--f-mono);font-size:12px;padding:2px 7px;border-radius:6px;border:1px solid var(--line);border-bottom-width:2px;background:var(--panel2)}
+.sbtn{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line);background:var(--panel2);color:var(--muted);border-radius:99px;padding:6px 12px;cursor:pointer;font:inherit;font-size:13px}.sbtn:hover{border-color:var(--accent);color:var(--ink)}
+/* upozornění */
+#toasts{position:fixed;right:18px;bottom:18px;z-index:85;display:flex;flex-direction:column;gap:8px;max-width:340px}
+.toast{display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:14px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--bg);box-shadow:0 14px 34px -12px rgba(0,0,0,.5);font-size:13.5px;line-height:1.4;animation:rise .3s ease;transition:opacity .4s,transform .4s}
+.toast.win{border-left-color:var(--good)}.toast.loss{border-left-color:var(--bad)}.toast.evo{border-left-color:var(--amber)}.toast.out{opacity:0;transform:translateX(30px)}.toast .ti{font-size:22px}
+@media (max-width:1100px){.hero-in{grid-template-columns:1fr}.kostka{grid-template-columns:1fr}}
+@media (max-width:900px){.hero{padding:18px 16px}.hero-s{grid-template-columns:1fr}.sbtn span,.sbtn kbd{display:none}.gitem summary{flex-direction:column;gap:2px}.gitem p{margin-left:0}.sbar .track>i span{display:none}}
+.ltop .ctrl{gap:6px;flex-wrap:nowrap}.ltop label[for=speed]{display:none}
+.simnote{border-left-color:var(--amber)!important;background:var(--amber-soft)!important}
+@media (max-width:1600px){.sbtn span{display:none}.ltop .clock .muted{display:none}}
+@media (max-width:1250px){.ltop .ctrl{flex-wrap:wrap}}
+.ltop .ctrl{margin-left:auto}.ltop .clock{gap:9px}
 
 </style></head>
 <body>
-<div id="loading"><div class="box"><b style="font-family:var(--f-display);font-size:28px;font-weight:700">🧬 Strategy Lab</b><span id="ld-t" class="muted">Připravuji…</span><div class="pbar"><i id="ld-b" style="width:2%"></i></div><span class="muted" style="font-size:12.5px">Načítají se data trhu (NQ po minutě, denní ETF a akcie, výsledky firem, makro) a všech 28 strategií přehraje historii. Trvá to pár sekund.</span></div></div>
+<div id="loading"><div class="box"><b style="font-family:var(--f-display);font-size:28px;font-weight:700">🧬 Strategy Lab</b><span id="ld-t" class="muted">Připravuji…</span><div class="pbar"><i id="ld-b" style="width:2%"></i></div><span class="muted" style="font-size:12.5px">Načítají se data trhu (NQ po minutě, denní ETF a akcie, výsledky firem, makro) a všech 32 strategií přehraje historii. Trvá to pár sekund.</span></div></div>
 <div class="lapp">
   <header class="ltop">
-    <div class="lbrand"><span class="logo">🧬</span><b>Strategy Lab</b><span>28 strategií, které obchodují, hodnotí se a učí</span></div>
+    <div class="lbrand"><span class="logo">🧬</span><b>Strategy Lab</b><span>32 strategií, které obchodují, hodnotí se a učí</span></div>
     <div class="clock" id="clock"></div>
     <div class="ctrl">
       <button class="btn primary" id="play" aria-label="Spustit nebo pozastavit simulaci">▶ Spustit</button>
@@ -1934,6 +2041,106 @@ DEF({ id:'bh', name:'Buy & Hold NQ (benchmark)', cat:'invest', tf:'1d', mkts:'NQ
     idea:'Měřítko, se kterým se poměřuje každá strategie. Pokud strategie po nákladech a riziku nepřekoná prosté držení indexu, nemá smysl.',
     rules:['Na začátku nakoupit 100 % NQ a nic nedělat.'], basics:['Každá strategie musí obhájit svou složitost proti tomuto řádku.'], fund:'–', senti:'–', works:'Dlouhé býčí trhy.', fails:'Medvědí trhy a krize.', howto:['Kup indexový ETF a nedělej nic.'] } });
 
+/* ==== 32_strat_new.js ==== */
+/* ===================== NOVÉ STRATEGIE (v2): Initial Balance, overnight drift, TTM squeeze, Halloween ===================== */
+
+DEF({ id:'ib_break', name:'Initial Balance breakout (Market Profile)', cat:'intraday', tf:'5m', mkts:'NQ', kind:'trade', risk:0.005, minTrades:6,
+  params:{
+    ibMax:{ v:0.45, min:0.2, max:0.8, step:0.05, label:'Max. šířka IB (× denní ATR)' },
+    ext:{ v:1.0, min:0.5, max:2.0, step:0.25, label:'Cíl: prodloužení IB (× šířka IB)' },
+    stopMode:{ v:'mid', opts:['mid','opp'], label:'Stop: střed IB / druhá strana' },
+    expiry:{ v:840, opts:[720,780,840,900], label:'Příkazy platí do (NY)' },
+    shorts:{ v:true, type:'bool', label:'Obchodovat i průraz dolů' } },
+  init(){ return { day:-1 }; },
+  onBar(x, p, st){
+    if (st.day !== x.d){ st.day = x.d; st.placed = false; }
+    if (st.placed || x.t !== 630) return; st.placed = true;
+    let hi = -Infinity, lo = Infinity; for (let k = 0; k < 12; k++){ if (!x.ok(k)) return; hi = Math.max(hi, x.h(k)); lo = Math.min(lo, x.l(k)); }
+    if (!x.dok('NQ', 15)) return; const atr = x.di('NQ', 'atr', 14, 1), w = hi - lo; if (!(atr > 0) || !(w > 0) || w > p.ibMax*atr) return;
+    const mid = (hi + lo)/2, exp = x.j + (p.expiry - 630), oco = 'ib' + x.d;
+    x.buy({ type:'stop', price: hi + NQ_TICK, stop: p.stopMode === 'mid' ? mid : lo - NQ_TICK, target: hi + p.ext*w, exp, oco, flat: 955, reason: 'Úzký Initial Balance (' + nf(w/atr, 2) + ' × ATR), průraz nahoru' });
+    if (p.shorts) x.sell({ type:'stop', price: lo - NQ_TICK, stop: p.stopMode === 'mid' ? mid : hi + NQ_TICK, target: lo - p.ext*w, exp, oco, flat: 955, reason: 'Úzký Initial Balance (' + nf(w/atr, 2) + ' × ATR), průraz dolů' });
+  },
+  info:{ who:'J. Peter Steidlmayer (CBOT) a James Dalton', src:'Mind Over Markets (J. Dalton, 1990); Market Profile CBOT', year:1990,
+    idea:'Initial Balance je rozpětí první hodiny obchodování (9:30–10:30 NY). Když je úzké, velcí hráči se ještě nerozhodli a den často „vyrazí“ jedním směrem. Průraz IB pak bývá začátek trendového dne a cena často urazí ještě jednu šířku IB.',
+    rules:['V 10:30 NY se změří high a low první hodiny (IB).','Obchoduje se jen úzký IB: šířka nejvýš 0,45 × denní ATR(14). Široký IB znamená spíš range den.','Buy stop nad IB high, sell stop pod IB low (OCO).','Stop na středu IB, cíl jedno prodloužení IB (1 × šířka). Vše se zavírá v 15:55.'],
+    basics:['Dalton dělí dny podle IB: úzký IB = šance na trendový den, široký IB = rotace v rozpětí.','Většina dní IB nakonec aspoň jednou prorazí, ale skutečný trend přijde jen někdy. Proto je důležitý cíl a stop.','Funguje nejlíp v kombinaci s kontextem: kde je cena vůči včerejší value area.'],
+    fund:'Nepoužívá přímo. Dny se zprávou v 10:00 (ISM) mohou IB rozbít předčasně.', senti:'Kontext jde do EV filtru, lab se učí, ve kterém prostředí průraz IB vydrží.',
+    works:'Trendové dny po klidném ránu, dny po kompresi.', fails:'Dny s falešným průrazem a návratem do IB (tzv. failed auction).',
+    howto:['Na grafu NQ 5m si v 10:30 NY (Praha 16:30) označ high a low první hodiny.','Porovnej šířku s denním ATR(14). Když je IB užší než asi polovina ATR, je den kandidát.','Zadej buy stop 1 tick nad IB high a sell stop 1 tick pod IB low jako OCO.','Stop na středu IB, cíl o jednu šířku IB dál.','Nevyplněné příkazy zruš ve 14:00 NY, otevřenou pozici zavři před koncem dne.'] } });
+
+DEF({ id:'overnight', name:'Overnight drift (noční výnos)', cat:'quant', tf:'5m', mkts:'NQ', kind:'trade', risk:0.01, minTrades:10,
+  params:{
+    stopAtr:{ v:1.0, min:0.5, max:2.0, step:0.1, label:'Stop (× denní ATR)' },
+    trend:{ v:true, type:'bool', label:'Jen nad SMA denní' },
+    trendLen:{ v:100, min:20, max:200, step:10, label:'Délka SMA' },
+    noFri:{ v:true, type:'bool', label:'Nedržet přes víkend' } },
+  init(){ return {}; },
+  onBar(x, p){
+    const L = x.pos();
+    if (L){ if (x.d !== L.eD && x.t === 575) x.exit(L, 'TIME'); return; }
+    if (x.t !== 955 || x.orders().length || !x.dok('NQ', p.trendLen + 2)) return;
+    if (p.noFri && x.W.cal.get(x.d).wd === 5) return;
+    if (p.trend && x.dc('NQ', 1) < x.di('NQ', 'sma', p.trendLen, 1)) return;
+    const atr = x.di('NQ', 'atr', 14, 1); if (!(atr > 0)) return;
+    x.buy({ stop: x.c() - p.stopAtr*atr, reason: 'Nákup v 15:55 NY, prodej po otevření 9:35: noční prémie' });
+  },
+  info:{ who:'Cliff, Cooper & Gulen; Kelly & Clark', src:'„Return differences between trading and non-trading hours“ (M. Cliff, M. Cooper, H. Gulen, 2008)', year:2008,
+    idea:'Studie opakovaně ukazují, že velká část výnosu amerických akcií vzniká přes noc, mezi zavřením a otevřením, a ne během dne. Strategie proto drží NQ jen přes noc a přes den je v hotovosti.',
+    rules:['Nákup v 15:55 NY (Praha 21:55).','Prodej druhý den v 9:35 NY po otevření.','Jen když je trh nad denní SMA100 (býčí režim). Přes víkend se nedrží.','Stop 1 × denní ATR(14) jako pojistka proti nočnímu šoku.'],
+    basics:['Noční výnos je jedna z nejstabilnějších anomálií, ale ne každý rok.','Riziko je mezera při otevření: stop se v noci může vyplnit hůř.','Poplatky a skluz se platí každý den, proto rozhoduje levná exekuce.'],
+    fund:'Nepoužívá přímo. Výsledky firem po zavření trhu dělají největší noční pohyby.', senti:'Kontext jde do EV filtru: lab zjišťuje, v jakém sentimentu noc vydělává.',
+    works:'Býčí trhy, období klidu.', fails:'Noční šoky (geopolitika, výsledky firem), medvědí trhy.',
+    howto:['Každý obchodní den v 15:55 NY zkontroluj, jestli je NQ nad SMA100 na denním grafu.','Pokud ano, kup NQ (nebo MNQ) těsně před zavřením.','Nastav stop 1 × denní ATR pod vstup.','Ráno v 9:35 NY pozici prodej, ať se stalo cokoli.','V pátek nekupuj, víkend je zbytečné riziko.'] } });
+
+DEF({ id:'ttm_squeeze', name:'TTM Squeeze (John Carter)', cat:'swing', tf:'1d', mkts:'NQ', kind:'trade', risk:0.01, minTrades:8,
+  params:{
+    kc:{ v:1.5, min:1.0, max:2.5, step:0.25, label:'Keltner šířka (× ATR)' },
+    minSq:{ v:5, min:2, max:15, step:1, label:'Min. dnů ve squeeze' },
+    stopAtr:{ v:2.0, min:1.0, max:3.5, step:0.25, label:'Stop (× ATR)' },
+    exitEma:{ v:10, min:5, max:30, step:1, label:'Výstup: close pod EMA' },
+    maxHold:{ v:15, min:5, max:40, step:1, label:'Max. držení (dny)' },
+    shorts:{ v:false, type:'bool', label:'Obchodovat i shorty' } },
+  init(){ return {}; },
+  onBar(x, p){
+    const L = x.pos('NQ');
+    if (L){ const e = x.di('NQ', 'ema', p.exitEma); if ((L.side > 0 ? x.dc('NQ') < e : x.dc('NQ') > e)) x.exit(L, 'SIG', 'close'); else if (x.d - L.eD >= p.maxHold) x.exit(L, 'TIME', 'close'); return; }
+    if (!x.dok('NQ', 60)) return;
+    const sq = k => 2*x.di('NQ', 'std', 20, k) < p.kc*x.di('NQ', 'atr', 20, k);
+    if (sq(0) || !sq(1)) return; for (let k = 1; k <= p.minSq; k++) if (!sq(k)) return;
+    const c = x.dc('NQ'), mom = c - x.di('NQ', 'sma', 20), a = x.di('NQ', 'atr', 20);
+    if (mom > 0 && c > x.dc('NQ', 5)) x.buy('NQ', { type:'close', stopDist: p.stopAtr*a, riskRef: p.stopAtr*a, reason: 'Squeeze uvolněn po ' + p.minSq + '+ dnech, momentum nahoru' });
+    else if (p.shorts && mom < 0 && c < x.dc('NQ', 5)) x.sell('NQ', { type:'close', stopDist: p.stopAtr*a, riskRef: p.stopAtr*a, reason: 'Squeeze uvolněn, momentum dolů' });
+  },
+  info:{ who:'John F. Carter (Simpler Trading)', src:'Mastering the Trade (J. Carter, 2005); Bollinger & Keltner pásma', year:2005,
+    idea:'Volatilita se střídá: po klidu přichází pohyb. Když se Bollingerova pásma stáhnou dovnitř Keltnerova kanálu, trh je „stlačená pružina“. Jakmile se uvolní, vstupuje se ve směru momenta.',
+    rules:['Squeeze: Bollinger(20, 2σ) uvnitř Keltner(20, 1,5 × ATR) aspoň 5 dní.','Signál: první den, kdy squeeze skončí.','Long, když je close nad SMA20 a výš než před 5 dny. Shorty volitelně zrcadlově.','Stop 2 × ATR, výstup při close pod EMA10 nebo po 15 dnech.'],
+    basics:['Squeeze neříká směr, jen že přijde pohyb. Směr dává momentum.','Nejlepší signály přicházejí po dlouhé kompresi.','Stejný princip jako Crabelovo NR7: komprese předchází expanzi.'],
+    fund:'Nepoužívá přímo.', senti:'Kontext jde do EV filtru.',
+    works:'Po dlouhém klidu, před velkými zprávami a na začátku trendu.', fails:'Falešná uvolnění, která se hned vrátí do klidu.',
+    howto:['Na denním grafu NQ přidej indikátor „TTM Squeeze“ nebo Bollinger(20,2) a Keltner(20,1.5).','Čekej, až squeeze trvá aspoň 5 dní (tečky jsou červené).','První den po uvolnění (zelená tečka) zkontroluj momentum: cena nad SMA20 a výš než před týdnem.','Kup na close, stop 2 × ATR.','Drž, dokud close nespadne pod EMA10, nejdéle 3 týdny.'] } });
+
+DEF({ id:'halloween', name:'Halloween efekt (Sell in May)', cat:'quant', tf:'1d', mkts:'NQ', kind:'trade', minTrades:3,
+  params:{ start:{ v:11, min:9, max:12, step:1, label:'Nákup: měsíc' }, end:{ v:5, min:4, max:7, step:1, label:'Prodej: měsíc' }, trend:{ v:false, type:'bool', label:'Jen nad SMA200' } },
+  init(){ return {}; },
+  onBar(x, p){
+    const cal = x.W.cal, m = cal.get(x.d).m, inSeason = p.start > p.end ? (m >= p.start || m < p.end) : (m >= p.start && m < p.end), L = x.pos('NQ');
+    if (L){ if (!inSeason) x.exit(L, 'TIME', 'close'); return; }
+    if (!inSeason || !x.dok('NQ', 205)) return;
+    if (p.trend && x.dc('NQ') < x.di('NQ', 'sma', 200)) return;
+    x.buy('NQ', { type:'close', alloc: 1, riskRef: 3*x.di('NQ', 'atr', 10), reason: 'Sezóna ' + p.start + '. – ' + p.end + '. měsíc: historicky silnější půlrok' });
+  },
+  info:{ who:'Bouman & Jacobsen; Jacobsen & Zhang', src:'„The Halloween Indicator, Sell in May and Go Away“ (S. Bouman, B. Jacobsen, American Economic Review, 2002)', year:2002,
+    idea:'Akcie historicky vydělávaly mnohem víc od listopadu do dubna než od května do října. Efekt byl nalezen ve většině zemí a přes 300 let dat. Strategie drží NQ jen v silném půlroce.',
+    rules:['Nákup na close prvního obchodního dne listopadu.','Prodej na close prvního obchodního dne května.','Mezi tím hotovost. Volitelně jen nad SMA200.'],
+    basics:['Efekt je statisticky silný na dlouhých datech, ale v jednotlivých letech často selže.','Je to spíš doplněk než samostatný systém: méně času v trhu = menší riziko.','Daně a poplatky jsou minimální, obchoduje se dvakrát ročně.'],
+    fund:'Nepoužívá.', senti:'Nepoužívá, jde čistě o kalendář.',
+    works:'Dlouhodobě, napříč trhy.', fails:'Silná léta (například 2020), kdy hotovost zaostane.',
+    howto:['V kalendáři si označ první obchodní den listopadu a května.','V listopadu kup širokou ETF (QQQ, S&P 500).','V květnu prodej a drž hotovost nebo krátké dluhopisy.','Hodnoť po desetiletích, ne po jednotlivých letech.'] } });
+
+/* benchmark Buy & Hold vždy na konci seznamu */
+{ const k = STRATS.findIndex(d => d.id === 'bh'); if (k >= 0) STRATS.push(STRATS.splice(k, 1)[0]); }
+
 /* ==== 40_lab.js ==== */
 /* ===================== LAB: řízení simulace, mozek, vlastní data ===================== */
 const HIST_DAYS = 2750, INTRA_WARM = 22, KEEP_DAYS = 32;
@@ -2377,7 +2584,7 @@ const CONTENT = {
 
 /* ==== 60_ui.js ==== */
 /* ===================== UI ===================== */
-const DEFS = {}; STRATS.forEach(d => DEFS[d.id] = d);
+const DEFS = {}; STRATS.forEach(d => DEFS[d.id] = d); const NSTRAT = STRATS.filter(d => !d.bench).length;
 const UI = { lab: null, running: false, speed: 1380, acc: 0, lastT: 0, lastUi: 0, tick: 0, view: 'prehled', arg: null,
   sort: 'sharpe', dir: -1, lbCat: 'all', eqRange: 756, eqHidden: {}, eqiHidden: {}, jf: { sid: 'all', cat: 'all', res: 'all', shadow: true, port: false },
   mkt: { days: 1, sid: 'ict_2022', sym: 'NQ', reg: true }, stats: {}, store: null, lastSave: 0, lastSig: '', saveMsg: '', csv: null, arm: null,
@@ -2443,13 +2650,15 @@ function route(){
 }
 function renderView(){
   if (!UI.lab) return; computeStats(); const V = VIEWS[UI.view];
-  const sb = (!UI.lab.live && UI.view === 'prehled') ? '<div class="warn-box" style="margin-bottom:16px"><b>Tohle je ukázková simulace, ne skutečný trh.</b> Datum, ceny i obchody jsou vymyšlené, proto se vše hýbe tak rychle (1 simulovaný den za sekundu). ' + (UI.server ? 'Živá data jsou k dispozici, přepneš je v Nastavení.' : 'Živá data z GitHubu se zatím nenačetla. Až workflow <b>Strategy Lab – data</b> poprvé doběhne, stránka se po obnovení sama přepne na skutečný NQ a pohyb se zpomalí na reálný čas.') + ' Simulaci spustíš tlačítkem ▶ Spustit.</div>' : '';
+  const sb = (!UI.lab.live && UI.view === 'prehled') ? '<div class="note-box simnote" style="margin-bottom:16px"><b>🎮 Ukázková simulace.</b> Datum, ceny i obchody jsou vymyšlené, aby sis mohl lab vyzkoušet a přetočit si roky během minut. ' + (UI.server ? 'Živá data jsou k dispozici, přepneš je v Nastavení.' : 'Živá data z GitHubu se zatím nenačetla. Až workflow <b>Strategy Lab – data</b> poprvé doběhne, stránka se po obnovení sama přepne na skutečný NQ a pohyb se zpomalí na reálný čas.') + ' Simulaci spustíš tlačítkem ▶ Spustit.</div>' : '';
   $('#view').innerHTML = sb + V.render(UI.arg); document.title = 'Strategy Lab';
   if (V.update) V.update(UI.arg, true);
+  if (typeof afterRender === 'function') afterRender();
 }
 function uiTick(){
   if (!UI.lab) return; UI.tick++; computeStats(); updateTop();
   const V = VIEWS[UI.view]; if (V.update && (UI.running || UI.lab.eng.jobs.length || UI.tick % 4 === 0)) V.update(UI.arg, false);
+  if (typeof afterTick === 'function') afterTick();
   if (Date.now() - UI.lastSave > 45000) saveBrain(false);
 }
 function updateTop(){
@@ -2464,7 +2673,7 @@ function updateTop(){
 /* ---------- Přehled ---------- */
 const LB_COLS = [ ['name','Strategie'], ['spark','Křivka 1 rok'], ['ret','Výnos'], ['cagr','CAGR'], ['sharpe','Sharpe'], ['mdd','Max DD'], ['n','Obchody'], ['win','Úspěšnost'], ['pf','PF'], ['expR','Očekávání'], ['sqn','SQN'], ['gen','Gen.'], ['st','Stav'] ];
 function lbRows(){
-  const S = UI.lab.eng.S; let ids = Object.keys(S).filter(id => UI.lbCat === 'all' || S[id].def.cat === UI.lbCat);
+  const S = UI.lab.eng.S; let ids = Object.keys(S).filter(id => UI.lbCat === 'all' || S[id].def.cat === UI.lbCat || (UI.lbCat === 'fav' && isFav(id)));
   const val = id => { const s = UI.stats[id], R = S[id]; switch (UI.sort){ case 'name': return R.def.name; case 'gen': return R.gen; default: { const v = s[UI.sort]; const low = R.def.kind === 'trade' && s.n < 15 ? 1e6*UI.dir : 0; return (v === null || v === undefined || !isFinite(v) ? -1e9*(UI.dir < 0 ? 1 : -1) : v) + low; } } };
   ids.sort((a, b) => { const x = val(a), y = val(b); return (typeof x === 'string' ? x.localeCompare(y) : x - y) * UI.dir; });
   return ids;
@@ -2472,7 +2681,7 @@ function lbRows(){
 function lbTable(){
   const S = UI.lab.eng.S; let h = '<thead><tr><th class="n">#</th>' + LB_COLS.map(([k, l]) => '<th class="' + (k === 'spark' || k === 'st' ? '' : 'sort ') + (['name','spark','st'].includes(k) ? '' : 'n ') + (UI.sort === k ? 'on' : '') + '" data-act="sort" data-k="' + k + '">' + l + (UI.sort === k ? (UI.dir < 0 ? ' ↓' : ' ↑') : '') + '</th>').join('') + '</tr></thead><tbody>';
   lbRows().forEach((id, k) => { const R = S[id], s = UI.stats[id], d = R.def, yrs = s.days/252;
-    h += '<tr class="click" data-act="go" data-k="s-' + hid(id) + '"><td class="n muted">' + (k+1) + '</td><td><div class="sname"><b>' + esc(d.name) + '</b><span>' + catChip(d.cat) + ' <span class="muted" style="font-size:12px">' + tfName(d.tf) + ' · ' + (yrs >= 1 ? nf(yrs,1) + ' r' : s.days + ' d') + '</span>' + (d.kind === 'trade' && s.n < 15 ? ' <span class="chip amber">málo dat</span>' : '') + (d.bench ? ' <span class="chip">benchmark</span>' : '') + '</span></div></td>'
+    h += '<tr class="click" data-act="go" data-k="s-' + hid(id) + '"><td class="n muted">' + (k+1) + '</td><td><div class="sname"><b>' + favStar(id) + esc(d.name) + '</b><span>' + catChip(d.cat) + ' <span class="muted" style="font-size:12px">' + tfName(d.tf) + ' · ' + (yrs >= 1 ? nf(yrs,1) + ' r' : s.days + ' d') + '</span>' + (d.kind === 'trade' && s.n < 15 ? ' <span class="chip amber">málo dat</span>' : '') + (d.bench ? ' <span class="chip">benchmark</span>' : '') + '</span></div></td>'
       + '<td style="width:120px"><canvas class="cv" id="sp-' + id + '" style="height:26px"></canvas></td>'
       + '<td class="n">' + signed(s.ret, x => spct(x, 1)) + '</td><td class="n">' + (s.cagr === null ? '<span class="muted">–</span>' : signed(s.cagr, x => spct(x, 1))) + '</td>'
       + '<td class="n">' + nf(s.sharpe, 2) + '</td><td class="n">' + pct(s.mdd, 1) + '</td><td class="n">' + s.n + (s.shadow ? ' <span class="muted">+' + s.shadow + '</span>' : '') + '</td>'
@@ -2530,7 +2739,7 @@ const VIEWS = {};
 VIEWS.prehled = {
   render(){
     const catF = '<span class="chip ' + (UI.lbCat === 'all' ? 'on' : '') + '" data-act="lbcat" data-k="all">Vše</span>' + Object.keys(CATS).map(k => '<span class="chip ' + (UI.lbCat === k ? 'on' : '') + '" data-act="lbcat" data-k="' + k + '"><i style="background:var(--c-' + k + ')"></i>' + CATS[k].name + '</span>').join('');
-    return '<div class="page-h"><div><h1>Přehled labu</h1><p>' + (UI.lab.live ? 'Všech 28 strategií (a benchmark Buy & Hold) obchoduje <b>skutečný trh</b> na papíře: minutová data NQ futures, denní data ETF, akcií a měn, výsledky firem, makro a sentiment titulků. Historii si přehrály od začátku dostupných dat a teď pokračují s každou novou minutou. Každý obchod se sám vyhodnotí a parametry se upravují walk-forward evolucí.' : 'Všech 28 strategií (a benchmark Buy & Hold) obchoduje stejný simulovaný trh se všemi daty, která potřebují: minutový NQ, 11 let denních dat šesti trhů, 24 akcií s výsledky hospodaření a sentimentem a makro zprávy. Každý obchod se sám vyhodnotí a strategie si parametry upravují walk-forward evolucí.') + '</p></div></div>'
+    return '<div class="page-h"><div><h1>Přehled labu</h1><p>' + (UI.lab.live ? 'Všech ' + NSTRAT + ' strategií (a benchmark Buy & Hold) obchoduje <b>skutečný trh</b> na papíře: minutová data NQ futures, denní data ETF, akcií a měn, výsledky firem, makro a sentiment titulků. Historii si přehrály od začátku dostupných dat a teď pokračují s každou novou minutou. Každý obchod se sám vyhodnotí a parametry se upravují walk-forward evolucí.' : 'Všech ' + NSTRAT + ' strategií (a benchmark Buy & Hold) obchoduje stejný simulovaný trh se všemi daty, která potřebují: minutový NQ, 11 let denních dat šesti trhů, 24 akcií s výsledky hospodaření a sentimentem a makro zprávy. Každý obchod se sám vyhodnotí a strategie si parametry upravují walk-forward evolucí.') + '</p></div></div>'
       + '<div class="grid g4"><div class="card" id="c-mkt"></div><div class="card"><h3>Sentiment trhu <small>Fear &amp; Greed</small></h3><canvas id="cv-fg" class="cv"></canvas><div id="c-fg"></div></div><div class="card" id="c-macro"></div><div class="card" id="c-cal"></div></div>'
       + '<div class="card sec"><h3>Žebříček strategií <small>řazení kliknutím na sloupec · řádek otevře stránku strategie</small></h3><div class="filters" style="margin-bottom:10px">' + catF + '</div><div class="tbl-wrap"><table id="lb"></table></div>'
       + '<p class="muted" style="font-size:12px;margin:8px 0 0">Výnos a Sharpe jsou za celé období strategie (denní ~11 let, intraday od začátku minutových dat). Šedé číslo u obchodů je počet stínových obchodů, které pravděpodobnostní filtr zablokoval a lab je jen sleduje. Gen. = kolikrát evoluce přijala nové parametry.</p></div>'
@@ -2557,14 +2766,14 @@ VIEWS.prehled = {
 VIEWS.strategie = {
   render(cat){
     const cats = cat ? [cat] : Object.keys(CATS);
-    let h = '<div class="page-h"><div><h1>' + (cat ? CATS[cat].name : 'Knihovna strategií') + '</h1><p>' + (cat ? 'Strategie této kategorie. Každá má vlastní stránku: původ, pravidla, základy, návod jak ji obchodovat, živé obchody, vyhodnocení a evoluci parametrů.' : 'Všech 28 strategií od skalpů po dlouhodobé investování. Každá má vlastní stránku s pravidly podle autora, základy, které musí sedět, návodem pro tebe a živými výsledky z labu.') + '</p></div></div>';
+    let h = '<div class="page-h"><div><h1>' + (cat ? CATS[cat].name : 'Knihovna strategií') + '</h1><p>' + (cat ? 'Strategie této kategorie. Každá má vlastní stránku: původ, pravidla, základy, návod jak ji obchodovat, živé obchody, vyhodnocení a evoluci parametrů.' : 'Všech ' + NSTRAT + ' strategií od skalpů po dlouhodobé investování. Každá má vlastní stránku s pravidly podle autora, základy, které musí sedět, návodem pro tebe a živými výsledky z labu.') + '</p></div></div>';
     for (const c of cats){ const L = STRATS.filter(d => d.cat === c); h += '<h2 style="margin:22px 0 10px">' + CATS[c].name + ' <span class="muted" style="font-size:14px;font-weight:500">' + L.length + '</span></h2><div class="scards" id="sc-' + c + '"></div>'; }
     return h;
   },
   update(cat){
     const cats = cat ? [cat] : Object.keys(CATS);
-    for (const c of cats){ setH('sc-' + c, STRATS.filter(d => d.cat === c).map(d => { const s = UI.stats[d.id], R = UI.lab.eng.S[d.id];
-      return '<a class="scard" href="#s-' + hid(d.id) + '" style="--cc:var(--c-' + d.cat + ')"><div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline"><h3>' + esc(d.name) + '</h3>' + statusOf(R) + '</div><p>' + esc(d.info.who) + '</p><p style="color:var(--ink)">' + esc(d.info.idea.split('. ')[0]) + '.</p><div class="row"><span>' + tfName(d.tf) + '</span><span>Sharpe ' + nf(s.sharpe, 2) + '</span><span class="' + (s.ret >= 0 ? 'good' : 'bad') + '">' + spct(s.ret, 0) + '</span><span>' + s.n + ' obch.</span><span class="amber">gen. ' + R.gen + '</span></div></a>'; }).join('')); }
+    for (const c of cats){ setH('sc-' + c, STRATS.filter(d => d.cat === c && libOk(d)).map(d => { const s = UI.stats[d.id], R = UI.lab.eng.S[d.id];
+      return '<a class="scard" href="#s-' + hid(d.id) + '" style="--cc:var(--c-' + d.cat + ')"><div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline"><h3>' + esc(d.name) + '</h3>' + statusOf(R) + '</div><p>' + esc(d.info.who) + '</p>' + metaRow(d) + '<div class="row"><span>' + tfName(d.tf) + '</span><span>Sharpe ' + nf(s.sharpe, 2) + '</span><span class="' + (s.ret >= 0 ? 'good' : 'bad') + '">' + spct(s.ret, 0) + '</span><span>' + s.n + ' obch.</span><span class="amber">gen. ' + R.gen + '</span></div></a>'; }).join('')); }
   }
 };
 
@@ -3035,6 +3244,392 @@ async function livePoll(first){
   } catch (e){ UI.saveMsg = 'Spojení se serverem přerušeno, zkouším znovu.'; }
   setTimeout(livePoll, UI.status && UI.status.mode === 'mock' ? 3000 : 20000);
 }
+
+
+
+/* ==== 62_extras.js ==== */
+/* ===================== v2: průvodce, slovníček, hledání, oblíbené, kvíz, kalkulačky, upozornění ===================== */
+/* META: [úroveň 1–3, držení, čas 1–3, styl, riziko 1–3, jednou větou] */
+const META = {
+  vwap_scalp:  [2,'min',3,'stat',2,'Když cena v klidném dni uteče daleko od průměrné ceny dne (VWAP), sázka na návrat zpátky.'],
+  brooks_h2:   [3,'min',3,'chart',2,'V trendu počká na druhý pokus o pokračování po malém poklesu a naskočí s ním.'],
+  news_scalp:  [3,'min',3,'fund',3,'Po zveřejnění CPI, NFP nebo Fedu jde se směrem, kterým trh na překvapení zareaguje.'],
+  ict_2022:    [3,'min',3,'chart',2,'Počká, až trh „vybere“ stopky ostatních, otočí se, a vstoupí v mezeře, kterou po sobě nechal.'],
+  ict_sb:      [2,'min',3,'chart',2,'Jedna hodina denně (16–17 h u nás): vstup do cenové mezery ve směru dne.'],
+  orb:         [1,'hod',2,'chart',2,'Označí rozpětí prvních 15 minut po otevření a jde se směrem, kterým cena první vyrazí.'],
+  vwap_trend:  [2,'hod',3,'chart',2,'V trendovém dni nakoupí, když se cena vrátí k průměrné ceně dne (VWAP).'],
+  mp80:        [3,'hod',3,'chart',2,'Když se cena vrátí do včerejší „férové zóny“, často ji projede celou na druhou stranu.'],
+  gap_fill:    [1,'hod',2,'stat',2,'Když trh otevře s malou mezerou proti včerejšku, sázka na její zavření.'],
+  williams_vb: [1,'dny',1,'stat',2,'Koupí, když cena vyskočí nad ranní otevření o kus včerejšího rozpětí.'],
+  rsi2:        [1,'dny',1,'stat',2,'V rostoucím trhu koupí krátký výprodej a prodá po odrazu. Obchod trvá pár dní.'],
+  ibs:         [1,'dny',1,'stat',2,'Koupí, když den zavře u svého minima, a prodá, jakmile se trh odrazí.'],
+  wyckoff:     [3,'tyd',2,'chart',2,'Hledá falešný průraz dolů (spring) po dlouhém klidu: velcí hráči nakupují.'],
+  minervini:   [2,'tyd',2,'chart',3,'Silné akcie v trendu, které se před dalším růstem uklidní (VCP).'],
+  canslim:     [2,'tyd',2,'fund',3,'Akcie s rostoucími zisky, které jsou lídry trhu a prorážejí na nová maxima.'],
+  turtle:      [2,'tyd',1,'stat',3,'Legendární Želvy: kup průraz 20denního maxima, přidávej a drž, dokud trend nezlomí.'],
+  cta:         [1,'mes',1,'stat',2,'Drž, co roste, a shortuj, co padá, napříč akciemi, dluhopisy, zlatem a měnami.'],
+  faber:       [1,'mes',1,'passive',1,'Jednou měsíčně: drž jen trhy nad svým 10měsíčním průměrem, zbytek v hotovosti.'],
+  dual_mom:    [1,'mes',1,'passive',2,'Jednou měsíčně vybere silnější z akcií USA a světa, nebo utíká do dluhopisů.'],
+  tom:         [1,'dny',1,'stat',2,'Drží trh jen pár dní kolem přelomu měsíce, kdy přitékají nové peníze.'],
+  stat_arb:    [3,'dny',1,'stat',2,'Koupí akcie, které nepochopitelně spadly víc než trh, a prodá ty, co vyskočily.'],
+  pairs:       [2,'dny',1,'stat',1,'Dvojice firem, které chodí spolu (Coca-Cola a Pepsi): když se rozejdou, sázka na návrat.'],
+  pead:        [2,'tyd',1,'fund',2,'Po překvapivě dobrých výsledcích firmy akcie často roste ještě několik týdnů.'],
+  senti_ls:    [3,'dny',1,'fund',2,'Kupuje akcie s nejlepšími zprávami a prodává ty s nejhoršími.'],
+  graham:      [1,'roky',1,'fund',1,'Benjamin Graham: kupuj levné a zdravé firmy s rezervou bezpečí.'],
+  magic:       [1,'roky',1,'fund',2,'Greenblattův magický vzorec: kvalitní firmy za nízkou cenu, jednou ročně.'],
+  all_weather: [1,'roky',1,'passive',1,'Ray Dalio: portfolio, které má přežít růst, krizi, inflaci i deflaci.'],
+  bogle:       [1,'roky',1,'passive',1,'John Bogle: levný indexový fond, nic neřešit a čekat desítky let.'],
+  ib_break:    [2,'hod',2,'chart',2,'Když je první hodina obchodování úzká, průraz jejího rozpětí často odstartuje trendový den.'],
+  overnight:   [1,'noc',1,'stat',2,'Kupuje před zavřením a prodává ráno: velká část výnosu akcií historicky vzniká přes noc.'],
+  ttm_squeeze: [2,'tyd',1,'chart',2,'Po dlouhém klidu přichází pohyb: vstup, když se „stlačená pružina“ uvolní.'],
+  halloween:   [1,'mes',1,'passive',2,'Sell in May: drží akcie jen od listopadu do dubna, kdy historicky rostou víc.'],
+  bh:          [1,'roky',1,'passive',3,'Měřítko: prostě koupit NQ a držet. Strategie by ho měly porazit.'] };
+const HOLD = { min:'minuty', hod:'hodiny', noc:'přes noc', dny:'dny', tyd:'týdny', mes:'měsíce', roky:'roky' };
+const LEVEL = ['', 'Začátečník', 'Pokročilý', 'Expert'];
+const TIMEN = ['', 'Pár minut týdně', 'Chvíle denně', 'U grafu'];
+const RISKN = ['', 'Klidná', 'Střední', 'Divoká'];
+const CAT_ICON = { scalp:'⚡', ict:'🎯', intraday:'📈', swing:'🌊', trend:'🚂', quant:'🧮', event:'📰', invest:'🌳' };
+const meta = id => META[id] || [2,'dny',2,'stat',2,''];
+
+/* ---------- Slovníček ---------- */
+const GLOSS = [
+  { k:'sharpe', t:'Sharpe ratio', a:['sharpe'], g:'Výsledky', s:'Výnos vydělený kolísáním. Říká, kolik výnosu dostaneš za každou jednotku nervů.', l:'Nad 1 je dobré, nad 2 výborné, pod 0 strategie prodělává. Počítá se z denních změn kapitálu a přepočítává na rok. Je férovější než samotný výnos, protože trestá divoké výkyvy.' },
+  { k:'cagr', t:'CAGR', a:['cagr'], g:'Výsledky', s:'Průměrný roční výnos, jako kdyby rostl rovnoměrně každý rok.', l:'Compound Annual Growth Rate. +10 % CAGR za 10 let znamená zhruba 2,6× víc peněz. Ukazuje se jen u strategií s aspoň rokem dat.' },
+  { k:'ret', t:'Výnos', a:['výnos'], g:'Výsledky', s:'O kolik procent se změnil kapitál od začátku.', l:'Celkový výnos za celé období strategie. Pozor: denní strategie mají 11 let, intraday jen pár týdnů, proto je férovější srovnávat Sharpe.' },
+  { k:'mdd', t:'Max drawdown', a:['max dd','max drawdown','drawdown'], g:'Riziko', s:'Největší propad od vrcholu ke dnu. Kolik bys v nejhorší chvíli ztratil.', l:'Drawdown 30 % znamená, že ze 100 000 Kč bylo v jednu chvíli jen 70 000 Kč. Většina lidí vydrží psychicky mnohem menší propad, než si myslí.' },
+  { k:'n', t:'Obchody', a:['obchody','obch.'], g:'Výsledky', s:'Kolik obchodů strategie udělala. Šedé +číslo jsou stínové obchody.', l:'Pod 15 obchodů je výsledek spíš náhoda. Statistika začíná dávat smysl od 30 a víc.' },
+  { k:'win', t:'Úspěšnost', a:['úspěšnost','win rate'], g:'Výsledky', s:'Kolik procent obchodů skončilo ziskem.', l:'Sama o sobě nic neříká. Trendová strategie může vyhrát jen 30 % obchodů a vydělávat, protože výhry jsou velké. Skalp vyhraje 70 % a může prodělávat.' },
+  { k:'pf', t:'Profit factor', a:['pf','profit factor'], g:'Výsledky', s:'Součet zisků děleno součtem ztrát. Nad 1 = vydělává.', l:'1,5 znamená, že na každou prodělanou korunu připadá 1,50 Kč zisku. Nad 2 je velmi dobré.' },
+  { k:'expR', t:'Očekávání (R)', a:['očekávání','expectancy'], g:'Riziko', s:'Kolik průměrně vyděláš na obchod, měřeno v násobcích rizika (R).', l:'+0,3R znamená: když riskuješ 1 000 Kč na obchod, v průměru vyděláš 300 Kč na obchod. Tohle je nejdůležitější číslo obchodní strategie.' },
+  { k:'r', t:'R-násobek', a:['r','r-násobek','r-násobky'], g:'Riziko', s:'Výsledek obchodu vyjádřený v počtu riskovaných jednotek.', l:'Když riskuješ 50 bodů (vzdálenost ke stopu) a vyděláš 100 bodů, obchod skončil +2R. Ztráta na stopu je −1R. Van Tharp: myslet v R tě zbaví emocí z peněz.' },
+  { k:'sqn', t:'SQN', a:['sqn'], g:'Výsledky', s:'System Quality Number od Van Tharpa: jak spolehlivá je výhoda strategie.', l:'Počítá se jako průměrné R / směrodatná odchylka R × odmocnina počtu obchodů. Nad 2 dobré, nad 3 výborné. Pod 5 obchody se nepočítá.' },
+  { k:'gen', t:'Generace', a:['gen.','generace'], g:'Učení', s:'Kolikrát si strategie úspěšně vylepšila parametry.', l:'Evoluce zkouší nové nastavení na starších datech (ve vzorku) a ověřuje ho na novějších (mimo vzorek). Přijme ho, jen když je lepší v obou. Tím se brání přeučení.' },
+  { k:'ev', t:'EV filtr', a:['ev','ev filtr'], g:'Učení', s:'Před každým obchodem lab spočítá, jestli se v aktuální situaci vyplatí.', l:'Bayesovský model si pamatuje, jak dopadly obchody v podobném kontextu (trend, sentiment, makro). Když je očekávaná hodnota záporná, obchod se jen sleduje jako stínový.' },
+  { k:'shadow', t:'Stínový obchod', a:['stín','stínový obchod'], g:'Učení', s:'Obchod, který filtr zablokoval. Lab ho sleduje bez peněz, aby se dál učil.', l:'Díky stínovým obchodům lab zjistí, jestli filtr blokoval správně. Kdyby blokoval dobré obchody, model se opraví.' },
+  { k:'kelly', t:'Kelly kritérium', a:['kelly','¼ kelly'], g:'Riziko', s:'Vzorec pro ideální velikost sázky podle výhody. Lab používá jen čtvrtinu.', l:'Plný Kelly maximalizuje růst, ale s obrovskými výkyvy. Čtvrtina Kellyho dá asi 3/4 růstu s mnohem menšími propady.' },
+  { k:'wf', t:'Walk-forward', a:['walk-forward','is','oos'], g:'Učení', s:'Optimalizace na minulosti a ověření na datech, která strategie neviděla.', l:'IS (in-sample) = data na hledání parametrů. OOS (out-of-sample) = data na kontrolu. Co funguje jen v IS, je přeučené (overfitting).' },
+  { k:'overfit', t:'Přeučení (overfitting)', a:['overfitting','přeučení'], g:'Učení', s:'Strategie se naučila náhodu minulosti místo skutečné výhody.', l:'Nejčastější chyba backtestů. Čím víc parametrů a čím méně obchodů, tím větší riziko. Proto lab přijímá změny jen po ověření mimo vzorek.' },
+  { k:'vwap', t:'VWAP', a:['vwap'], g:'Trh', s:'Průměrná cena dne vážená objemem. Měřítko, za kolik nakupovaly instituce.', l:'Volume Weighted Average Price se počítá od 9:30 NY. Nad VWAP mají převahu kupci, pod ním prodejci.' },
+  { k:'atr', t:'ATR', a:['atr'], g:'Trh', s:'Průměrné rozpětí svíčky. Kolik se trh obvykle hýbe.', l:'Average True Range od Wellese Wildera. Stopy a cíle se v labu zadávají v násobcích ATR, aby fungovaly v klidu i ve volatilitě.' },
+  { k:'pdh', t:'PDH / PDL', a:['pdh / pdl','pdh','pdl'], g:'Trh', s:'Včerejší maximum a minimum. Místa, kde čekají stopky.', l:'Previous Day High/Low. ICT tradeři sledují, jestli trh tyto úrovně „vybere“ (sweep) a otočí se.' },
+  { k:'va', t:'Value area', a:['value area včera','value area'], g:'Trh', s:'Pásmo, kde se včera zobchodovalo 70 % objemu. „Férová cena“.', l:'Z Market Profile (Steidlmayer, Dalton). Pravidlo 80 %: když se cena vrátí do včerejší value area, často ji projede celou.' },
+  { k:'fvg', t:'FVG (Fair Value Gap)', a:['fvg'], g:'ICT', s:'Mezera mezi svíčkami po prudkém pohybu. Trh se do ní často vrací.', l:'Tři svíčky, kde se knot první a třetí nepřekrývají. ICT ji používá jako místo vstupu po změně struktury.' },
+  { k:'mss', t:'MSS', a:['mss'], g:'ICT', s:'Market Structure Shift: cena prorazí poslední swing a mění směr.', l:'Po vybrání likvidity (sweep) přijde prudký pohyb opačně, který zlomí strukturu. Teprve pak ICT hledá vstup.' },
+  { k:'sweep', t:'Sweep likvidity', a:['sweep'], g:'ICT', s:'Rychlé projetí za důležité maximum či minimum, kde čekají stopky.', l:'Velcí hráči potřebují protistranu. Stopky ostatních jim ji dají. Po sweepu se trh často otočí.' },
+  { k:'kz', t:'Killzóna', a:['killzóna','killzone'], g:'ICT', s:'Časové okno s největší aktivitou institucí.', l:'Londýn 8–11 h a New York 14:30–17 h našeho času. Mimo killzóny ICT neobchoduje.' },
+  { k:'fg', t:'Fear & Greed', a:['fear & greed','fear &amp; greed','sentiment trhu'], g:'Trh', s:'Index strachu a chamtivosti 0–100. Nízko = panika, vysoko = euforie.', l:'Buffett: buď chamtivý, když ostatní mají strach. Extrémy indexu bývají blízko obratů.' },
+  { k:'nr7', t:'NR7', a:['nr7'], g:'Trh', s:'Den s nejmenším rozpětím za posledních 7 dní. Po něm často přijde pohyb.', l:'Toby Crabel: komprese předchází expanzi.' },
+  { k:'ib', t:'Initial Balance', a:['initial balance','ib'], g:'Trh', s:'Rozpětí první hodiny obchodování (15:30–16:30 našeho času).', l:'Úzký IB často předchází trendovému dni, široký spíš rotaci.' },
+  { k:'bh', t:'Buy & Hold', a:['buy & hold','buy &amp; hold'], g:'Výsledky', s:'Prostě koupit a držet. Měřítko, které by strategie měly porazit.', l:'Překvapivě těžké porazit. Většina aktivních fondů ho dlouhodobě neporáží.' },
+  { k:'oco', t:'OCO', a:['oco'], g:'Trh', s:'One Cancels Other: dva příkazy, a když se vyplní jeden, druhý se zruší.', l:'Typické pro průrazy: buy stop nad rozpětím a sell stop pod ním.' },
+  { k:'nq', t:'NQ / MNQ', a:['nq','mnq'], g:'Trh', s:'Futures na index Nasdaq 100. NQ = 20 $ za bod, mikro MNQ = 2 $ za bod.', l:'Obchoduje se na CME téměř 24 hodin denně, od neděle večera do pátku večer.' } ];
+const GMAP = {}; GLOSS.forEach(g => g.a.forEach(a => GMAP[a] = g));
+const norm = s => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
+
+/* ---------- Předvolby ---------- */
+const PREF = (() => { let p = {}; try { p = JSON.parse(localStorage.getItem('sl-prefs') || '{}'); } catch (e){} return Object.assign({ fav: [], fs: 100, toasts: true, onboard: false, simple: true, lv: 0, hold: 'all' }, p); })();
+const savePref = () => { try { localStorage.setItem('sl-prefs', JSON.stringify(PREF)); } catch (e){} };
+function isFav(id){ return PREF.fav.includes(id); }
+function favStar(id, big){ return '<button class="star' + (isFav(id) ? ' on' : '') + (big ? ' big' : '') + '" data-act="fav" data-k="' + id + '" aria-label="' + (isFav(id) ? 'Odebrat z oblíbených' : 'Přidat do oblíbených') + '" aria-pressed="' + isFav(id) + '">' + (isFav(id) ? '★' : '☆') + '</button>'; }
+function levelDots(l){ return '<span class="dots" title="Náročnost: ' + LEVEL[l] + '">' + [1,2,3].map(k => '<i class="' + (k <= l ? 'on' : '') + '"></i>').join('') + '</span>'; }
+function metaRow(d){ const m = meta(d.id); return '<div class="mrow">' + levelDots(m[0]) + '<span>' + LEVEL[m[0]] + '</span><span>⏱ ' + HOLD[m[1]] + '</span><span>🕐 ' + TIMEN[m[2]] + '</span></div><p class="plain">' + esc(m[5]) + '</p>'; }
+function libOk(d){ const m = meta(d.id); if (PREF.lv && m[0] !== PREF.lv) return false; if (PREF.hold === 'intra' && !['min','hod','noc'].includes(m[1])) return false; if (PREF.hold === 'swing' && !['dny','tyd'].includes(m[1])) return false; if (PREF.hold === 'long' && !['mes','roky'].includes(m[1])) return false; if (PREF.hold === 'fav' && !isFav(d.id)) return false; return true; }
+
+/* ---------- Upozornění (toasty) ---------- */
+function toast(html, kind){
+  let box = document.getElementById('toasts'); if (!box){ box = document.createElement('div'); box.id = 'toasts'; box.setAttribute('role', 'status'); box.setAttribute('aria-live', 'polite'); document.body.appendChild(box); }
+  const t = document.createElement('div'); t.className = 'toast ' + (kind || ''); t.innerHTML = html; box.appendChild(t);
+  while (box.children.length > 3) box.removeChild(box.firstChild);
+  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 400); }, 6500);
+}
+const TST = { tid: null, evo: null };
+function afterTick(){
+  const lab = UI.lab; if (!lab) return; const f = lab.eng.feed, last = f.length ? f[f.length - 1].id : 0, ev = lab.eng.evoLog.length;
+  const calm = lab.live || (UI.running && UI.speed <= 360);
+  if (TST.tid === null){ TST.tid = last; TST.evo = ev; }
+  if (PREF.toasts && calm){
+    const fresh = f.filter(t => t.id > TST.tid && DEFS[t.sid] && !t.shadow).slice(-2);
+    for (const t of fresh){ const R = t.R !== undefined ? t.R : null; toast('<span class="grade ' + t.review.grade + '">' + t.review.grade + '</span><div><b>' + esc(DEFS[t.sid].name) + '</b><br>' + (t.side > 0 ? 'Long ' : 'Short ') + t.sym + ' uzavřen ' + (R !== null ? '<b class="' + (R >= 0 ? 'good' : 'bad') + '">' + fR(R) + '</b>' : '') + '</div>', R !== null && R >= 0 ? 'win' : 'loss'); }
+    for (const l of lab.eng.evoLog.slice(TST.evo)) if (l.accepted) toast('<span class="ti">🧬</span><div><b>' + esc(DEFS[l.sid].name) + '</b><br>Evoluce přijala nové parametry (gen. ' + (l.gen + 1) + ')</div>', 'evo');
+  }
+  TST.tid = last; TST.evo = ev;
+  if (UI.view === 'prehled') setH('hero', heroHtml());
+}
+
+/* ---------- Přehled: úvodní karta a časová osa seancí ---------- */
+function sessionBar(){
+  const n = UI.lab.now(), now = ((n.clock + 360) % 1440) / 1440*100;
+  const seg = (a, b, cls, lbl) => '<i class="' + cls + '" style="left:' + (a/24*100) + '%;width:' + ((b - a)/24*100) + '%" title="' + lbl + '"><span>' + lbl + '</span></i>';
+  return '<div class="sbar" aria-label="Obchodní seance v pražském čase"><div class="track">' + seg(0, 2, 'as', '') + seg(2, 8, 'as', 'Asie') + seg(8, 14, 'ln', 'Londýn') + seg(8, 11, 'kz', '') + seg(14.5, 17, 'kz', '') + seg(15.5, 22, 'ny', 'New York') + seg(0, 0, '', '')
+    + '<b class="now" style="left:' + now + '%"><em>teď ' + prg(n.clock) + '</em></b></div><div class="ticks">' + [0,3,6,9,12,15,18,21,24].map(h => '<span style="left:' + (h/24*100) + '%">' + h + '</span>').join('') + '</div>'
+    + '<div class="slegend"><span><i class="as"></i>Asie</span><span><i class="ln"></i>Londýn</span><span><i class="ny"></i>New York (burza 15:30–22:00)</span><span><i class="kz"></i>Killzóny ICT</span></div></div>';
+}
+function heroHtml(){
+  const lab = UI.lab, S = lab.eng.S, n = lab.now(), hr = Math.floor(((n.clock + 360) % 1440)/60);
+  const hi = hr < 10 ? 'Dobré ráno' : hr < 18 ? 'Dobré odpoledne' : 'Dobrý večer';
+  const trade = Object.keys(S).filter(id => !S[id].def.bench && UI.stats[id] && (S[id].def.kind === 'port' || UI.stats[id].n >= 30));
+  const best = trade.slice().sort((a, b) => UI.stats[b].sharpe - UI.stats[a].sharpe)[0];
+  const open = Object.keys(S).filter(id => S[id].acc.lots.some(l => !l.shadow) && !S[id].def.bench).length;
+  const ev = (lab.W.events[n.d] || []).filter(e => e.type !== 'EARN'), nextEv = ev.find(e => e.clock > n.clock);
+  const M = lab.W.macro[lab.d - 1], fg = M ? M.fg : 50, mood = fg < 25 ? '😱 panika' : fg < 45 ? '😟 strach' : fg <= 55 ? '😐 klid' : fg <= 75 ? '😀 optimismus' : '🤑 euforie';
+  const D = lab.W.daily.NQ, i = Math.min(D.n - 1, lab.d - 1), trend = i > 60 ? (D.c(i) > ind(D, 'sma', 50, i) ? 'roste 📈' : 'klesá 📉') : '…';
+  const favs = PREF.fav.filter(id => S[id]);
+  const fx = favs.length ? '<div class="favstrip"><span class="muted">⭐ Tvoje oblíbené:</span>' + favs.map(id => { const s = UI.stats[id]; return '<a class="fchip" href="#s-' + hid(id) + '">' + esc(DEFS[id].name.split(' (')[0]) + ' ' + signed(s.ret, x => spct(x, 1)) + statusOf(S[id]) + '</a>'; }).join('') + '</div>' : '';
+  return '<div class="hero-in"><div class="hero-t"><h1>' + hi + ' 👋</h1><p>NQ dlouhodobě <b>' + trend + '</b>, nálada trhu: <b>' + mood + '</b>. ' + (lab.live ? 'Teď je ' + sessLabel(n.clock).toLowerCase() + '.' : 'Běží ukázková simulace.') + '</p>'
+    + '<div class="hero-b"><a class="btn primary" href="#kviz">🧭 Najdi svou strategii</a><button class="btn" data-act="tour">👀 Prohlídka za 30 s</button><a class="btn" href="#nastroje">🧮 Kalkulačky</a></div></div>'
+    + '<div class="hero-s">'
+    + '<a class="hs" href="' + (best ? '#s-' + hid(best) : '#strategie') + '"><span class="e">🏆</span><span><small>Nejlepší poměr výnos/riziko</small><b>' + (best ? esc(DEFS[best].name.split(' (')[0]) : '–') + '</b><em>' + (best ? 'Sharpe ' + nf(UI.stats[best].sharpe, 2) : '') + '</em></span></a>'
+    + '<a class="hs" href="#obchody"><span class="e">💼</span><span><small>Právě v obchodě</small><b>' + open + ' z ' + NSTRAT + ' strategií</b><em>otevřené pozice</em></span></a>'
+    + '<a class="hs" href="#trh"><span class="e">📰</span><span><small>Zprávy dnes</small><b>' + (nextEv ? esc(nextEv.name) : ev.length ? 'Dnešní zprávy už vyšly' : 'Klidný den') + '</b><em>' + (nextEv ? 'v ' + prg(nextEv.clock) + ' našeho času' : 'žádné velké makro') + '</em></span></a>'
+    + '<a class="hs" href="#evoluce"><span class="e">🧬</span><span><small>Strategie se učí</small><b>' + lab.eng.evoLog.filter(l => l.accepted).length + ' vylepšení</b><em>z ' + lab.eng.evoLog.length + ' pokusů</em></span></a>'
+    + '</div></div>' + sessionBar() + fx;
+}
+{ const R0 = VIEWS.prehled.render, U0 = VIEWS.prehled.update;
+  VIEWS.prehled.render = function(a){
+    let h = R0.call(this, a);
+    h = h.replace('<div class="page-h"><div><h1>Přehled labu</h1>', '<section class="hero" id="hero"></section><div class="page-h"><div><h2 class="h1s">Přehled labu</h2>');
+    const chips = '<span class="chip ' + (UI.lbCat === 'fav' ? 'on' : '') + '" data-act="lbcat" data-k="fav">★ Oblíbené</span>';
+    h = h.replace('<div class="filters" style="margin-bottom:10px">', '<div class="filters" style="margin-bottom:10px"><span class="chip tog' + (PREF.simple ? '' : ' on') + '" data-act="simple" title="Zobrazit nebo skrýt pokročilé sloupce">' + (PREF.simple ? '➕ Všechny sloupce' : '➖ Jen hlavní sloupce') + '</span>' + chips);
+    h = h.replace('<table id="lb">', '<table id="lb" class="' + (PREF.simple ? 'simple' : '') + '">');
+    return h;
+  };
+  VIEWS.prehled.update = function(a, full){ U0.call(this, a, full); if (full) setH('hero', heroHtml()); };
+}
+
+/* ---------- Knihovna: filtry podle náročnosti a držení ---------- */
+{ const R0 = VIEWS.strategie.render;
+  VIEWS.strategie.render = function(cat){
+    const h = R0.call(this, cat), ch = (k, v, l) => '<span class="chip ' + (PREF[k] === v ? 'on' : '') + '" data-act="lib" data-k="' + k + ':' + v + '">' + l + '</span>';
+    const f = '<div class="libf card"><div><b>Náročnost</b>' + ch('lv', 0, 'Vše') + ch('lv', 1, '🌱 Začátečník') + ch('lv', 2, '🌿 Pokročilý') + ch('lv', 3, '🌳 Expert') + '</div><div><b>Jak dlouho držet</b>' + ch('hold', 'all', 'Vše') + ch('hold', 'intra', 'Minuty až hodiny') + ch('hold', 'swing', 'Dny až týdny') + ch('hold', 'long', 'Měsíce až roky') + ch('hold', 'fav', '★ Oblíbené') + '</div><a class="btn primary" href="#kviz">🧭 Nevíš? Udělej kvíz</a></div>';
+    return h.replace(/<\/p><\/div><\/div>/, '</p></div></div>' + f);
+  };
+}
+
+/* ---------- Stránka strategie: v kostce, oblíbené, sbalitelné detaily ---------- */
+function kostka(id){
+  const d = DEFS[id], m = meta(id), s = UI.stats[id] || {};
+  const verdict = d.kind === 'trade' && s.n < 15 ? '🔎 Zatím málo obchodů na hodnocení (' + (s.n || 0) + '). Počkej na víc dat.' : s.sharpe >= 1 ? '💪 V labu si vede výborně (Sharpe ' + nf(s.sharpe, 2) + ').' : s.sharpe >= 0.5 ? '👍 V labu si vede solidně (Sharpe ' + nf(s.sharpe, 2) + ').' : s.sharpe >= 0 ? '😐 V labu je zatím průměrná (Sharpe ' + nf(s.sharpe, 2) + ').' : '👎 V labu teď prodělává (Sharpe ' + nf(s.sharpe, 2) + '). I dobré strategie mají špatná období.';
+  return '<div class="kostka card"><div class="k1"><span class="kic">' + (CAT_ICON[d.cat] || '📊') + '</span><div><small>V kostce</small><p>' + esc(m[5]) + '</p><p class="verd">' + verdict + '</p></div></div>'
+    + '<div class="k2"><div><small>Náročnost</small><b>' + levelDots(m[0]) + ' ' + LEVEL[m[0]] + '</b></div><div><small>Obchod trvá</small><b>⏱ ' + HOLD[m[1]] + '</b></div><div><small>Čas, který potřebuješ</small><b>🕐 ' + TIMEN[m[2]] + '</b></div><div><small>Výkyvy</small><b>' + ['', '🟢', '🟡', '🔴'][m[4]] + ' ' + RISKN[m[4]] + '</b></div></div></div>';
+}
+{ const R0 = VIEWS.strat.render;
+  VIEWS.strat.render = function(id){
+    const d = DEFS[id]; let h = R0.call(this, id);
+    h = h.replace('<h1>' + esc(d.name) + '</h1>', '<h1>' + esc(d.name) + ' ' + favStar(id, true) + '</h1>');
+    h = h.replace('<div class="toc">', kostka(id) + '<div class="toc">');
+    h = h.replace('<div class="grid g2 sec" id="t-learn">', '<details class="adv sec" id="adv"' + (PREF.adv ? ' open' : '') + '><summary><span>🔬 Pro pokročilé</span> co se strategie naučila, pravděpodobnostní model, parametry, evoluce a statistiky</summary><div class="grid g2 sec" id="t-learn">');
+    h = h.replace('<div class="card sec"><h3>Deník obchodů', '</details><div class="card sec"><h3>Deník obchodů');
+    return h;
+  };
+}
+
+/* ---------- Navigace ---------- */
+function renderNav(){
+  const v = UI.view, a = UI.arg, cnt = {}; STRATS.forEach(d => { if (!d.bench) cnt[d.cat] = (cnt[d.cat] || 0) + 1; });
+  const L = (h, ic, t, on, c) => '<a href="#' + h + '" class="' + (on ? 'on' : '') + '"' + (on ? ' aria-current="page"' : '') + '><span><i class="ic" aria-hidden="true">' + ic + '</i>' + t + '</span>' + (c !== undefined ? '<span class="cnt">' + c + '</span>' : '') + '</a>';
+  let h = L('prehled', '🏠', 'Přehled', v === 'prehled') + L('strategie', '📚', 'Všechny strategie', v === 'strategie' && !a, NSTRAT) + L('kviz', '🧭', 'Najdi svou strategii', v === 'kviz');
+  h += '<div class="grp cat">Kategorie</div>'; for (const k in CATS) h += L('kat-' + k, CAT_ICON[k], CATS[k].name, v === 'strategie' && a === k, cnt[k]).replace('<a ', '<a data-cat="1" ');
+  h += '<div class="grp">Lab</div>' + L('obchody', '📒', 'Deník obchodů', v === 'obchody') + L('trh', '🕯️', 'Trh a data', v === 'trh') + L('evoluce', '🧬', 'Evoluce strategií', v === 'evoluce');
+  h += '<div class="grp">Naučit se</div>' + L('zaklady', '🧠', 'Základy a psychologie', v === 'zaklady') + L('investice', '🌳', 'Dlouhodobé investování', v === 'investice') + L('slovnik', '📖', 'Slovníček pojmů', v === 'slovnik');
+  h += '<div class="grp">Nástroje</div>' + L('nastroje', '🧮', 'Kalkulačky', v === 'nastroje') + L('data', '📂', 'Test na vlastních datech', v === 'data') + L('nastaveni', '⚙️', 'Nastavení a mozek', v === 'nastaveni');
+  h += '<div class="navx"><button class="btn small" data-act="tour">👀 Prohlídka</button><button class="btn small" data-act="keys">⌨️ Zkratky</button></div>';
+  h += '<div class="note">Vzdělávací nástroj: papírové obchodování bez skutečných příkazů. Výsledky nejsou předpovědí budoucích výnosů ani investičním doporučením.</div>';
+  $('#nav').innerHTML = h;
+}
+
+/* ---------- Kvíz: najdi svou strategii ---------- */
+const QUIZ = [
+  { k:'time', q:'Kolik času můžeš tradingu věnovat?', o:[[1,'☕','Pár minut týdně','Mám práci a rodinu, chci to mít jednoduché.'],[2,'⏰','Chvíli každý den','Večer se na trh podívám, ale ne celý den.'],[3,'🖥️','Sedím u grafu','Mám čas sledovat trh v reálném čase.']] },
+  { k:'hold', q:'Jak dlouho chceš mít obchod otevřený?', o:[['intra','⚡','Minuty až hodiny','Večer chci mít čistý stůl.'],['swing','🌊','Dny až týdny','Nechám obchod pracovat.'],['long','🌳','Měsíce až roky','Buduju majetek, ne adrenalin.']] },
+  { k:'risk', q:'Jak se cítíš, když účet klesne o 20 %?', o:[[1,'😰','Nespím','Chci co nejmenší výkyvy.'],[2,'😬','Nelíbí se mi to','Ale vím, že to k tomu patří.'],[3,'😎','V pohodě','Jde mi o výnos, výkyvy vydržím.']] },
+  { k:'style', q:'Co tě na trzích baví nejvíc?', o:[['stat','📊','Čísla a statistika','Pravidla, pravděpodobnosti, žádné pocity.'],['chart','🕯️','Grafy a vzory','Svíčky, úrovně, struktura trhu.'],['fund','📰','Zprávy a firmy','Výsledky, ekonomika, sentiment.'],['passive','😴','Nechci se starat','Ať to běží samo.']] } ];
+UI.quiz = { step: 0, ans: {} };
+function quizScore(id){
+  const m = meta(id), A = UI.quiz.ans, s = UI.stats[id] || {}; let sc = 0;
+  const hold = ['min','hod','noc'].includes(m[1]) ? 'intra' : ['dny','tyd'].includes(m[1]) ? 'swing' : 'long';
+  sc += hold === A.hold ? 4 : (A.hold === 'swing' || hold === 'swing') ? 1 : -2;
+  sc += m[2] <= A.time ? 2 : -3*(m[2] - A.time);
+  sc += 2 - 1.5*Math.abs(m[4] - A.risk);
+  sc += m[3] === A.style ? 3 : A.style === 'passive' && m[2] === 1 ? 1 : 0;
+  if (A.time === 1 && m[0] === 3) sc -= 2; if (A.risk === 1 && m[0] === 3) sc -= 1;
+  sc += Math.max(-0.5, Math.min(1, s.sharpe || 0));
+  return sc;
+}
+VIEWS.kviz = {
+  render(){
+    const Q = UI.quiz;
+    if (Q.step >= QUIZ.length){
+      const ids = Object.keys(DEFS).filter(id => !DEFS[id].bench), sc = ids.map(id => [id, quizScore(id)]).sort((a, b) => b[1] - a[1]).slice(0, 3), mx = 13;
+      return '<div class="quiz card"><div class="qh"><span>🎉</span><h1>Tvoje strategie</h1><p>Podle odpovědí ti sedí tyhle tři. Klikni a podívej se, jak fungují a jak se jim v labu daří.</p></div><div class="qres">'
+        + sc.map(([id, v], k) => { const d = DEFS[id], s = UI.stats[id]; return '<a class="qr" href="#s-' + hid(id) + '" style="--cc:var(--c-' + d.cat + ')"><span class="medal">' + ['🥇','🥈','🥉'][k] + '</span><div><b>' + esc(d.name) + '</b><div class="match"><i style="width:' + Math.round(Math.max(30, Math.min(99, v/mx*100))) + '%"></i></div><small>shoda ' + Math.round(Math.max(30, Math.min(99, v/mx*100))) + ' %</small>' + metaRow(d) + '<div class="row"><span>Sharpe v labu ' + nf(s.sharpe, 2) + '</span><span class="' + (s.ret >= 0 ? 'good' : 'bad') + '">' + spct(s.ret, 0) + '</span></div></div></a>'; }).join('')
+        + '</div><div class="qnav"><button class="btn" data-act="quiz" data-k="restart">↺ Zkusit znovu</button>' + sc.map(([id]) => isFav(id) ? '' : '<button class="btn" data-act="fav" data-k="' + id + '">☆ Uložit ' + esc(DEFS[id].name.split(' (')[0]) + '</button>').join('') + '</div></div>';
+    }
+    const q = QUIZ[Q.step];
+    return '<div class="quiz card"><div class="qprog">' + QUIZ.map((x, k) => '<i class="' + (k < Q.step ? 'done' : k === Q.step ? 'on' : '') + '"></i>').join('') + '</div><small class="muted">Otázka ' + (Q.step + 1) + ' ze ' + QUIZ.length + '</small><h1>' + q.q + '</h1><div class="qopts">'
+      + q.o.map(o => '<button class="qo' + (Q.ans[q.k] === o[0] ? ' on' : '') + '" data-act="quiz" data-k="' + q.k + ':' + o[0] + '"><span class="e">' + o[1] + '</span><b>' + o[2] + '</b><small>' + o[3] + '</small></button>').join('') + '</div>'
+      + (Q.step ? '<div class="qnav"><button class="btn" data-act="quiz" data-k="back">← Zpět</button></div>' : '') + '</div>';
+  }
+};
+
+/* ---------- Slovníček ---------- */
+UI.gq = '';
+VIEWS.slovnik = {
+  render(){
+    return '<div class="page-h"><div><h1>Slovníček pojmů</h1><p>Všechny zkratky a pojmy z labu lidsky. Tip: v celé aplikaci můžeš najet myší (nebo ťuknout) na <span class="gl">tečkovaně podtržené</span> slovo a vysvětlení se ukáže samo.</p></div></div>'
+      + '<div class="card"><input type="search" id="g-q" class="bigsearch" placeholder="🔍 Hledej pojem, třeba drawdown, Sharpe, FVG…" value="' + esc(UI.gq) + '" aria-label="Hledat v slovníčku"><div id="g-list" class="glist"></div></div>'
+      + '<div class="grid g2 sec"><div class="card"><h3>✅ Co lab umí</h3><ul class="rules"><li>Obchodovat ' + NSTRAT + ' strategií najednou na skutečných datech NQ, akcií, ETF a makra, bez rizika.</li><li>Každý obchod vyhodnotit, oznámkovat a vysvětlit, proč vznikl.</li><li>Učit se: pravděpodobnostní filtr podle kontextu a evoluce parametrů s ověřením mimo vzorek.</li><li>Ukázat, jak strategie fungují, krok za krokem tak, abys je mohl obchodovat sám.</li><li>Otestovat strategie na tvých vlastních datech (CSV).</li></ul></div>'
+      + '<div class="card"><h3>⚠️ Co lab neumí</h3><ul class="rules"><li>Předpovědět budoucnost. Minulé výsledky nejsou zárukou.</li><li>Zadávat skutečné příkazy u brokera. Všechno je na papíře.</li><li>Přesně napodobit skluz a frontu příkazů. Skutečné výsledky budou o něco horší.</li><li>Mít víc než ~35 dní minutových dat zdarma (omezení Yahoo). Intraday statistiky proto rostou postupně.</li><li>Nahradit tvůj úsudek, řízení rizika a psychiku. To je na tobě.</li></ul></div></div>';
+  },
+  update(a, full){
+    if (!full) return; const q = norm(UI.gq), groups = {};
+    GLOSS.filter(g => !q || norm(g.t + ' ' + g.s + ' ' + g.a.join(' ')).includes(q)).forEach(g => (groups[g.g] = groups[g.g] || []).push(g));
+    setH('g-list', Object.keys(groups).length ? Object.entries(groups).map(([k, L]) => '<h3>' + k + '</h3>' + L.map(g => '<details class="gitem"><summary><b>' + g.t + '</b><span>' + esc(g.s) + '</span></summary><p>' + esc(g.l) + '</p></details>').join('')).join('') : '<p class="muted">Nic takového ve slovníčku není.</p>');
+  }
+};
+
+/* ---------- Kalkulačky ---------- */
+UI.calc = { acct: 50000, rp: 1, stop: 20, ins: 'MNQ', rr: 2, wr: 45, mcN: 100, mcR: 1, seed: 1 };
+const INS = { NQ: 20, MNQ: 2, ES: 50, MES: 5 };
+VIEWS.nastroje = {
+  render(){
+    const C = UI.calc, inp = (id, v, l, st, mn, mx) => '<label class="fld"><span>' + l + '</span><input type="number" id="' + id + '" value="' + v + '" step="' + st + '" min="' + mn + '" max="' + mx + '"></label>';
+    return '<div class="page-h"><div><h1>Kalkulačky</h1><p>Nástroje, které používají profesionálové před každým obchodem. Všechno se počítá hned, jak píšeš.</p></div></div>'
+      + '<div class="grid g2"><div class="card"><h3>📏 Velikost pozice <small>kolik kontraktů koupit</small></h3><div class="fgrid">' + inp('c-acct', C.acct, 'Velikost účtu ($)', 1000, 100, 1e8) + inp('c-rp', C.rp, 'Riziko na obchod (%)', 0.25, 0.1, 10) + inp('c-stop', C.stop, 'Stop (bodů)', 1, 0.25, 2000)
+      + '<label class="fld"><span>Kontrakt</span><select id="c-ins">' + Object.keys(INS).map(k => '<option' + (k === C.ins ? ' selected' : '') + '>' + k + '</option>').join('') + '</select></label></div><div id="c-pos" class="calc-out"></div></div>'
+      + '<div class="card"><h3>⚖️ Risk : Reward <small>kolik musíš vyhrávat</small></h3><div class="fgrid">' + inp('c-rr', C.rr, 'Cíl (násobek rizika R)', 0.25, 0.25, 20) + inp('c-wr', C.wr, 'Tvoje úspěšnost (%)', 1, 1, 99) + '</div><div id="c-rrout" class="calc-out"></div></div></div>'
+      + '<div class="card sec"><h3>🎲 Simulátor 100 obchodů <small>Monte Carlo: jak může vypadat budoucnost se stejnou výhodou</small></h3><div class="fgrid">' + inp('c-mcN', C.mcN, 'Počet obchodů', 10, 10, 500) + inp('c-mcR', C.mcR, 'Riziko na obchod (%)', 0.25, 0.1, 10) + '<div class="fld"><span>&nbsp;</span><button class="btn primary" data-act="mc">🎲 Přehrát znovu</button></div></div>'
+      + '<p class="muted" style="margin:6px 0 10px;font-size:13px">Úspěšnost a cíl se berou z kalkulačky Risk : Reward. 40 náhodných budoucností se stejnými pravidly. Všimni si, jak různě může dopadnout i stejná strategie.</p><canvas id="cv-mc" class="cv"></canvas><div id="c-mcout" class="ltiles" style="margin-top:12px"></div></div>'
+      + '<div class="card sec"><h3>🕐 Důležité časy v Praze <small>NY je obvykle o 6 hodin pozadu</small></h3><div class="times">' + [['00:00','Otevření týdne (neděle) a Asie'],['08:00–11:00','Londýnská killzóna'],['14:30','Makro zprávy USA (CPI, NFP)'],['15:30','Otevření burzy v New Yorku'],['15:30–17:00','Newyorská killzóna'],['16:00–17:00','ICT Silver Bullet'],['16:30','Konec Initial Balance'],['18:00–19:30','Oběd v NY, nižší aktivita'],['20:00','Rozhodnutí Fedu (FOMC)'],['22:00','Zavření burzy']].map(([t, l]) => '<div><b>' + t + '</b><span>' + l + '</span></div>').join('') + '</div><p class="muted" style="font-size:12.5px;margin:8px 0 0">Pozor na pár týdnů v březnu a na přelomu října a listopadu: USA a Evropa mění čas v jiné dny a rozdíl je jen 5 hodin.</p></div>';
+  },
+  update(a, full){ if (full) calcAll(true); }
+};
+function calcAll(redrawMc){
+  const C = UI.calc, g = id => { const el = document.getElementById(id); return el ? el.value : null; };
+  for (const k of ['acct','rp','stop','rr','wr','mcN','mcR']){ const v = g('c-' + k); if (v !== null && v !== '' && isFinite(+v)) C[k] = +v; } const ins = g('c-ins'); if (ins) C.ins = ins;
+  const risk$ = C.acct*C.rp/100, per = C.stop*INS[C.ins], q = Math.floor(risk$/per), real = q*per;
+  setH('c-pos', q >= 1 ? '<div class="bigres">' + q + ' <span>' + C.ins + '</span></div><p>Riskuješ <b>' + money(real) + '</b> (' + pct(real/C.acct, 2) + ' účtu). Každý bod pohybu = <b>' + money(q*INS[C.ins]) + '</b>.</p>' : '<div class="bigres bad">0 <span>' + C.ins + '</span></div><p>Na tak velký stop je i 1 kontrakt moc (riziko ' + money(per) + ' = ' + pct(per/C.acct, 2) + ' účtu). Zkus mikro kontrakt nebo menší stop.</p>');
+  const be = 1/(1 + C.rr), w = C.wr/100, exp = w*C.rr - (1 - w);
+  setH('c-rrout', '<div class="rrbar"><i style="width:' + (be*100) + '%"></i><b style="left:' + (w*100) + '%"></b></div><p>Při cíli <b>' + nf(C.rr, 2) + 'R</b> ti stačí vyhrát <b>' + pct(be, 0) + '</b> obchodů, abys byl na nule.</p><p>S úspěšností ' + pct(w, 0) + ' vyděláš průměrně <b class="' + (exp >= 0 ? 'good' : 'bad') + '">' + fR(exp) + '</b> na obchod' + (exp >= 0 ? ' 👍' : '. Takhle by sis účet postupně vynuloval 👎') + '</p>');
+  if (redrawMc) monteCarlo();
+}
+function monteCarlo(){
+  const C = UI.calc, cv = document.getElementById('cv-mc'); if (!cv) return; const rng = makeRng(C.seed*97 + 13), N = Math.round(clamp(C.mcN, 10, 500)), r = clamp(C.mcR, 0.1, 10)/100, w = clamp(C.wr, 1, 99)/100, rr = clamp(C.rr, 0.1, 20);
+  const runs = [], ends = [], dds = [], streaks = [];
+  for (let k = 0; k < 40; k++){ let e = 100, pk = 100, dd = 0, st = 0, mst = 0; const v = [100]; for (let i = 0; i < N; i++){ const win = rng() < w; e *= 1 + (win ? rr*r : -r); if (win) st = 0; else { st++; mst = Math.max(mst, st); } pk = Math.max(pk, e); dd = Math.max(dd, 1 - e/pk); v.push(e); } runs.push(v); ends.push(e); dds.push(dd); streaks.push(mst); }
+  const srt = ends.slice().sort((a, b) => a - b), med = srt[20], best = runs[ends.indexOf(srt[39])], worst = runs[ends.indexOf(srt[0])];
+  const series = runs.map(v => ({ v, color: COL['--muted'], w: 0.6 })).concat([{ v: best, color: COL['--good'], w: 2, label: 'nejlepší' }, { v: worst, color: COL['--bad'], w: 2, label: 'nejhorší' }]);
+  lineChart(cv, { h: 260, series, x: runs[0].map((_, i) => 'obchod ' + i), refY: 100, yfmt: v => nf(v, 0), tfmt: v => nf(v, 1) });
+  const T = (l, v) => '<div class="ltile"><div class="l">' + l + '</div><div class="v">' + v + '</div></div>';
+  setH('c-mcout', T('Střední výsledek', signed(med/100 - 1, x => spct(x, 0))) + T('Nejhorší z 40', signed(srt[0]/100 - 1, x => spct(x, 0))) + T('Nejlepší z 40', signed(srt[39]/100 - 1, x => spct(x, 0))) + T('Šance na propad nad 20 %', pct(dds.filter(d => d > 0.2).length/40, 0)) + T('Typická série proher', Math.round(mean(streaks)) + '× za sebou'));
+}
+
+/* ---------- Vysvětlivky (tooltip) ---------- */
+function decorate(root){
+  (root || document).querySelectorAll('#view th, #view .ltile .l, #view dt, #view h3, #view .legend span').forEach(el => {
+    if (el.dataset.g || el.closest('.gl-skip')) return; const raw = norm(el.childNodes[0] && el.childNodes[0].nodeType === 3 ? el.childNodes[0].textContent : el.textContent).replace(/[↓↑]/g, '').trim();
+    const g = GMAP[raw]; if (!g) return; el.dataset.g = g.k; el.classList.add('gl'); if (!el.hasAttribute('tabindex')) el.tabIndex = 0;
+  });
+}
+const GK = {}; GLOSS.forEach(g => GK[g.k] = g);
+function showTip(el){
+  const g = GK[el.dataset.g]; if (!g) return; let tp = document.getElementById('gtip'); if (!tp){ tp = document.createElement('div'); tp.id = 'gtip'; tp.setAttribute('role', 'tooltip'); document.body.appendChild(tp); }
+  tp.innerHTML = '<b>' + g.t + '</b><p>' + esc(g.s) + '</p><small>' + esc(g.l) + '</small>'; tp.style.display = 'block';
+  const r = el.getBoundingClientRect(), tw = Math.min(320, window.innerWidth - 20); tp.style.width = tw + 'px';
+  let x = r.left + r.width/2 - tw/2; x = Math.max(10, Math.min(window.innerWidth - tw - 10, x)); tp.style.left = x + 'px';
+  const th = tp.offsetHeight; tp.style.top = (r.bottom + th + 12 < window.innerHeight ? r.bottom + 8 : Math.max(8, r.top - th - 8)) + 'px';
+}
+function hideTip(){ const tp = document.getElementById('gtip'); if (tp) tp.style.display = 'none'; }
+function afterRender(){ decorate(); hideTip(); }
+{ const U = {}; for (const k in VIEWS) U[k] = VIEWS[k].update; for (const k in VIEWS){ const u = VIEWS[k].update; if (!u) continue; VIEWS[k].update = function(a, full){ u.call(this, a, full); if (full || UI.tick % 3 === 0) decorate(); }; } }
+
+/* ---------- Modální okna: prohlídka, hledání, zkratky ---------- */
+function modal(html, cls){
+  closeModal(); const m = document.createElement('div'); m.id = 'modal'; m.className = 'modal ' + (cls || ''); m.innerHTML = '<div class="mbox" role="dialog" aria-modal="true">' + html + '</div>';
+  m.addEventListener('click', e => { if (e.target === m) closeModal(); }); document.body.appendChild(m);
+  const f = m.querySelector('input,button,a'); if (f) f.focus(); return m;
+}
+function closeModal(){ const m = document.getElementById('modal'); if (m) m.remove(); }
+const TOUR = [
+  ['🧬','Vítej ve Strategy Labu','Tady obchoduje ' + NSTRAT + ' slavných obchodních strategií najednou. Od ICT a skalpů po Warrena Buffetta. Všechno jen naoko, na papíře, ale na skutečných datech z trhu.'],
+  ['🏆','Žebříček','Na přehledu vidíš, které strategii se daří. Nejdůležitější je <b>Sharpe</b>: výnos za každou jednotku nervů. Nad 1 je super. Na každý pojem můžeš najet myší a ukáže se vysvětlení.'],
+  ['📚','Každá strategie má svou stránku','Najdeš tam, jak funguje jednou větou, pravidla od autora, návod krok za krokem a všechny její obchody s hodnocením A–D.'],
+  ['🧠','Strategie se samy učí','Po každém obchodu si zapamatují, v jaké situaci fungují. Občas zkusí lepší nastavení, ale přijmou ho, jen když obstojí i na datech, která neviděly.'],
+  ['🧭','Kde začít?','Udělej krátký kvíz a lab ti najde strategie, které ti sedí. Hvězdičkou ☆ si je ulož do oblíbených. Hledání otevřeš klávesou <kbd>/</kbd>.'] ];
+function tour(k){
+  k = k || 0; const t = TOUR[k];
+  modal('<div class="tour"><span class="te">' + t[0] + '</span><h2>' + t[1] + '</h2><p>' + t[2] + '</p><div class="tdots">' + TOUR.map((_, i) => '<i class="' + (i === k ? 'on' : '') + '"></i>').join('') + '</div><div class="tnav">' + (k ? '<button class="btn" data-act="tour" data-k="' + (k - 1) + '">← Zpět</button>' : '<button class="btn" data-act="close">Přeskočit</button>') + (k < TOUR.length - 1 ? '<button class="btn primary" data-act="tour" data-k="' + (k + 1) + '">Dál →</button>' : '<a class="btn primary" href="#kviz" data-act="close">🧭 Udělat kvíz</a><button class="btn" data-act="close">Hotovo</button>') + '</div></div>');
+  PREF.onboard = true; savePref();
+}
+function palette(){
+  const m = modal('<input type="search" id="pal-q" class="bigsearch" placeholder="Hledej strategii, stránku nebo pojem…" aria-label="Hledat" autocomplete="off"><div id="pal-l" class="pal"></div><div class="muted" style="font-size:12px;margin-top:8px">↑ ↓ vybrat · Enter otevřít · Esc zavřít</div>', 'top');
+  const items = [['🏠','Přehled','#prehled'],['📚','Všechny strategie','#strategie'],['🧭','Najdi svou strategii (kvíz)','#kviz'],['📒','Deník obchodů','#obchody'],['🕯️','Trh a data','#trh'],['🧬','Evoluce strategií','#evoluce'],['🧠','Základy a psychologie','#zaklady'],['🌳','Dlouhodobé investování','#investice'],['📖','Slovníček pojmů','#slovnik'],['🧮','Kalkulačky','#nastroje'],['📂','Test na vlastních datech','#data'],['⚙️','Nastavení a mozek','#nastaveni']]
+    .map(([i, t, h]) => ({ i, t, h, s: 'stránka' })).concat(STRATS.filter(d => !d.bench).map(d => ({ i: CAT_ICON[d.cat], t: d.name, h: '#s-' + hid(d.id), s: CATS[d.cat].name + (isFav(d.id) ? ' · ★' : '') + ' · ' + d.info.who }))).concat(GLOSS.map(g => ({ i: '📖', t: g.t, h: '#slovnik', s: g.s, g: g.t })));
+  let sel = 0, cur = items;
+  const draw = () => { const q = norm(document.getElementById('pal-q').value); cur = items.filter(x => !q || norm(x.t + ' ' + x.s).includes(q)).slice(0, 9); sel = Math.min(sel, Math.max(0, cur.length - 1));
+    document.getElementById('pal-l').innerHTML = cur.length ? cur.map((x, k) => '<a href="' + x.h + '" class="' + (k === sel ? 'on' : '') + '" data-act="palgo" data-g="' + esc(x.g || '') + '"><span class="pi">' + x.i + '</span><span><b>' + esc(x.t) + '</b><small>' + esc(x.s).slice(0, 90) + '</small></span></a>').join('') : '<p class="muted">Nic nenalezeno.</p>'; };
+  const q = document.getElementById('pal-q'); q.addEventListener('input', () => { sel = 0; draw(); });
+  q.addEventListener('keydown', e => { if (e.key === 'ArrowDown'){ sel = Math.min(cur.length - 1, sel + 1); draw(); e.preventDefault(); } else if (e.key === 'ArrowUp'){ sel = Math.max(0, sel - 1); draw(); e.preventDefault(); } else if (e.key === 'Enter' && cur[sel]){ if (cur[sel].g) UI.gq = cur[sel].g; location.hash = cur[sel].h; closeModal(); if (cur[sel].h === '#slovnik' && UI.view === 'slovnik') renderView(); } });
+  draw();
+}
+function keysHelp(){
+  modal('<h2>⌨️ Klávesové zkratky</h2><div class="keys">' + [['/','Hledat cokoli'],['Ctrl/⌘ + K','Hledat cokoli'],['?','Tahle nápověda'],['T','Světlý / tmavý režim'],['+ / −','Větší / menší písmo'],['G pak P','Přehled'],['G pak S','Všechny strategie'],['G pak K','Kvíz'],['Esc','Zavřít okno']].map(([k, l]) => '<div><kbd>' + k + '</kbd><span>' + l + '</span></div>').join('') + '</div><div class="tnav"><button class="btn primary" data-act="close">Rozumím</button></div>');
+}
+
+/* ---------- Ovládání ---------- */
+function setFs(v){ PREF.fs = clamp(v, 85, 140); savePref(); const a = document.querySelector('.lapp'); if (a) a.style.zoom = PREF.fs/100; const b = document.getElementById('fsbtn'); if (b) b.title = 'Velikost písma ' + PREF.fs + ' %'; if (UI.lab) setTimeout(() => VIEWS[UI.view].update(UI.arg, true), 50); }
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]'); if (!el) return; const a = el.dataset.act, k = el.dataset.k;
+  switch (a){
+    case 'fav': { e.preventDefault(); e.stopPropagation(); const i = PREF.fav.indexOf(k); if (i >= 0) PREF.fav.splice(i, 1); else PREF.fav.push(k); savePref(); toast('<span class="ti">' + (i >= 0 ? '☆' : '⭐') + '</span><div>' + esc(DEFS[k].name) + (i >= 0 ? ' odebrána z oblíbených' : ' přidána do oblíbených') + '</div>', 'evo'); renderView(); break; }
+    case 'simple': PREF.simple = !PREF.simple; savePref(); renderView(); break;
+    case 'lib': { const [kk, v] = k.split(':'); PREF[kk] = kk === 'lv' ? +v : v; savePref(); renderView(); break; }
+    case 'quiz': { const Q = UI.quiz; if (k === 'restart'){ Q.step = 0; Q.ans = {}; } else if (k === 'back') Q.step = Math.max(0, Q.step - 1); else { const [kk, v] = k.split(':'); Q.ans[kk] = isNaN(+v) ? v : +v; Q.step++; } renderView(); window.scrollTo({ top: 0, behavior: 'smooth' }); break; }
+    case 'tour': tour(k ? +k : 0); break;
+    case 'keys': keysHelp(); break;
+    case 'close': closeModal(); break;
+    case 'palgo': if (el.dataset.g){ UI.gq = el.dataset.g; } closeModal(); if (el.getAttribute('href') === '#slovnik' && UI.view === 'slovnik') setTimeout(renderView, 0); break;
+    case 'mc': UI.calc.seed++; calcAll(true); break;
+    case 'jump': { const t = document.getElementById(k), d = t && t.closest('details'); if (d && !d.open){ d.open = true; } break; }
+    case 'search': palette(); break;
+    case 'fs': setFs(PREF.fs >= 125 ? 100 : PREF.fs + 12.5); break;
+    case 'toasts': PREF.toasts = !PREF.toasts; savePref(); el.textContent = PREF.toasts ? '🔔' : '🔕'; el.title = PREF.toasts ? 'Upozornění na obchody zapnutá' : 'Upozornění vypnutá'; toast('<span class="ti">' + (PREF.toasts ? '🔔' : '🔕') + '</span><div>Upozornění na nové obchody ' + (PREF.toasts ? 'zapnuta' : 'vypnuta') + '</div>'); break;
+  }
+}, true);
+document.addEventListener('input', e => { if (e.target.id === 'g-q'){ UI.gq = e.target.value; VIEWS.slovnik.update(null, true); } else if (e.target.id && e.target.id.startsWith('c-')) calcAll(['c-mcN','c-mcR','c-rr','c-wr'].includes(e.target.id)); });
+document.addEventListener('change', e => { if (e.target.id === 'c-ins') calcAll(false); });
+document.addEventListener('toggle', e => { if (e.target.id === 'adv'){ PREF.adv = e.target.open; savePref(); if (e.target.open && UI.lab) VIEWS[UI.view].update(UI.arg, true); } }, true);
+document.addEventListener('mouseover', e => { const el = e.target.closest('[data-g]'); if (el) showTip(el); });
+document.addEventListener('mouseout', e => { if (e.target.closest('[data-g]')) hideTip(); });
+document.addEventListener('focusin', e => { const el = e.target.closest('[data-g]'); if (el) showTip(el); else hideTip(); });
+document.addEventListener('scroll', hideTip, true);
+let gPend = 0;
+document.addEventListener('keydown', e => {
+  const tag = (e.target.tagName || '').toLowerCase(), typing = tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable;
+  if (e.key === 'Escape'){ closeModal(); hideTip(); return; }
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); palette(); return; }
+  if (typing || e.metaKey || e.ctrlKey || e.altKey || document.getElementById('modal')) return;
+  const k = e.key.toLowerCase();
+  if (k === '/'){ e.preventDefault(); palette(); }
+  else if (k === '?'){ keysHelp(); }
+  else if (k === 't'){ const b = document.getElementById('themebtn'); if (b) b.click(); }
+  else if (k === '+' || k === '='){ setFs(PREF.fs + 7.5); }
+  else if (k === '-'){ setFs(PREF.fs - 7.5); }
+  else if (k === 'g'){ gPend = Date.now(); }
+  else if (Date.now() - gPend < 1200){ const map = { p: 'prehled', s: 'strategie', k: 'kviz', o: 'obchody', t: 'trh', e: 'evoluce', n: 'nastroje' }; if (map[k]) location.hash = map[k]; gPend = 0; }
+});
+
+/* ---------- Horní lišta: hledání, písmo, upozornění ---------- */
+(function topbar(){
+  const ctrl = document.querySelector('.ltop .ctrl'); if (!ctrl) return;
+  const s = document.createElement('button'); s.className = 'sbtn'; s.dataset.act = 'search'; s.innerHTML = '🔍 <span>Hledat</span> <kbd>/</kbd>'; s.setAttribute('aria-label', 'Hledat strategie a pojmy'); ctrl.insertBefore(s, ctrl.firstChild);
+  const th = document.getElementById('themebtn');
+  const t = document.createElement('button'); t.className = 'themebtn'; t.dataset.act = 'toasts'; t.textContent = PREF.toasts ? '🔔' : '🔕'; t.title = 'Upozornění na nové obchody'; t.setAttribute('aria-label', 'Zapnout nebo vypnout upozornění');
+  const f = document.createElement('button'); f.className = 'themebtn'; f.id = 'fsbtn'; f.dataset.act = 'fs'; f.textContent = 'A+'; f.style.fontWeight = '700'; f.style.fontSize = '13px'; f.setAttribute('aria-label', 'Zvětšit písmo');
+  if (th){ ctrl.insertBefore(t, th); ctrl.insertBefore(f, th); } else { ctrl.appendChild(t); ctrl.appendChild(f); }
+  const sk = document.createElement('a'); sk.href = '#view'; sk.className = 'skip'; sk.textContent = 'Přeskočit na obsah'; sk.addEventListener('click', e => { e.preventDefault(); const v = document.getElementById('view'); v.tabIndex = -1; v.focus(); }); document.body.insertBefore(sk, document.body.firstChild);
+  if (PREF.fs !== 100) setFs(PREF.fs);
+})();
+{ const P0 = VIEWS.prehled.render; let first = true; VIEWS.prehled.render = function(a){ const h = P0.call(this, a); if (first){ first = false; if (!PREF.onboard) setTimeout(() => tour(0), 600); } return h; }; }
 
 boot();
 
